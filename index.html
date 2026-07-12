@@ -1,369 +1,498 @@
 <!DOCTYPE html>
 <html lang="gu">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>નિમંત્રણ પત્રિકા - વયનિવૃત્તિ સન્માન સમારોહ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #800000; 
+            --secondary-color: #B8860B; 
+            --text-dark: #3a2214;
+            --bg-cream: #FAF5E9;
+            --card-white: #FFFDF9;
+        }
 
-    <title>વયનિવૃત્તિ સન્માન સમારોહ | ડૉ. કર્દમ જે. પટેલ</title>
+        body {
+            font-family: 'Noto Sans Gujarati', sans-serif;
+            background-color: var(--bg-cream);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
 
-    <meta name="description"
-        content="ડૉ. કર્દમ જે. પટેલના વયનિવૃત્તિ સન્માન સમારોહ માટેનું આમંત્રણ.">
+        /* Entry Screen Curtain Overlay */
+        #reveal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--card-white) 20%, var(--bg-cream) 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .overlay-content {
+            text-align: center;
+            color: var(--primary-color);
+        }
+        
+        .overlay-content i {
+            font-size: 3.5rem;
+            animation: pulse 1.5s infinite alternate;
+            margin-bottom: 15px;
+        }
 
-    <meta name="theme-color" content="#7A1E1E">
+        .open-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: 2px solid var(--secondary-color);
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(122, 31, 31, 0.3);
+            transition: all 0.3s ease;
+        }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        .open-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
 
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+        /* Main Content Grid Wrapper */
+        .app-container {
+            padding: 40px 20px;
+            opacity: 0;
+            transform: scale(0.96);
+            transition: opacity 1s ease, transform 1s ease;
+            z-index: 100;
+            position: relative;
+        }
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        .app-container.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
 
-    <link rel="stylesheet" href="style.css">
+        .card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-white);
+            border: 3px double var(--secondary-color);
+            outline: 12px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+            position: relative;
+        }
+
+        /* Traditional Corner Dots */
+        .card::before, .card::after {
+            content: "◆";
+            position: absolute;
+            top: 15px;
+            color: var(--secondary-color);
+            font-size: 22px;
+        }
+        .card::before { left: 20px; }
+        .card::after { right: 20px; }
+
+        .ganesha-header {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        .center-heading-wrapper {
+            text-align: center;
+            margin-bottom: 35px;
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.4rem;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            font-size: 1.6rem;
+            font-weight: 500;
+            margin: 0 auto;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--secondary-color);
+            display: inline-block;
+        }
+
+        .invitation-text {
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .salutation {
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            text-align: left;
+        }
+
+        /* Live Countdown Interface */
+        .countdown-container {
+            background: linear-gradient(135deg, #FFFDF9 0%, #FAF6ED 100%);
+            border: 1px dashed var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 35px 0;
+            text-align: center;
+        }
+
+        .countdown-title {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .countdown-box {
+            background: #fff;
+            border: 1px solid rgba(184, 134, 11, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .countdown-num {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.35rem;
+            margin: 40px 0 25px 0;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .box {
+            background-color: #FFF;
+            border: 1px solid rgba(184, 134, 11, 0.2);
+            border-left: 4px solid var(--secondary-color);
+            padding: 18px 20px;
+            border-radius: 6px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(184, 134, 11, 0.12);
+        }
+
+        .map-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .map-link .box {
+            border-left-color: #34a853; 
+        }
+
+        /* Calendar Integration Link */
+        .calendar-btn {
+            display: block;
+            max-width: 260px;
+            margin: -20px auto 30px auto;
+            background-color: #fff;
+            border: 1px solid #4285F4;
+            color: #4285F4;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.15);
+            transition: all 0.2s ease;
+        }
+
+        .calendar-btn:hover {
+            background-color: #4285F4;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
+            margin: 35px 0;
+        }
+
+        .inv-section {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .host-main {
+            background-color: #FAF6ED;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(122, 31, 31, 0.08);
+        }
+
+        .host-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .host-details {
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+        }
+
+        .family-list {
+            padding-left: 20px;
+            border-left: 2px solid var(--secondary-color);
+        }
+
+        .family-member {
+            font-weight: 500;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.9; }
+            100% { transform: scale(1.05); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .app-container { padding: 20px 10px; }
+            .card { padding: 35px 20px; outline: 6px solid var(--primary-color); }
+            .grid, .inv-section { grid-template-columns: 1fr; gap: 15px; }
+            
+            .center-heading-wrapper h1 { font-size: 1.8rem; }
+            .center-heading-wrapper h2 { font-size: 1.3rem; }
+            
+            .countdown-grid { gap: 8px; }
+            .countdown-num { font-size: 1.3rem; }
+
+            .family-list {
+                border-left: none;
+                border-top: 1px dashed var(--secondary-color);
+                padding-left: 0;
+                padding-top: 20px;
+                text-align: center;
+            }
+            .invitation-text { text-align: center; }
+        }
+    </style>
 </head>
-
 <body>
 
-    <div id="loader">
-
-        <div class="loader-content">
-
-            <div class="loader-icon">
-                🪔
-            </div>
-
-            <h2>॥ શ્રી ગણેશાય નમઃ ॥</h2>
-
-            <p>આમંત્રણ તૈયાર થઈ રહ્યું છે...</p>
-
-        </div>
-
+<!-- Reveal Overlay Overlay -->
+<div id="reveal-overlay">
+    <div class="overlay-content">
+        <i class="fa-solid fa-envelope-open-text"></i>
+        <h2 style="border:none; transform:none; left:0; margin-bottom:25px; display:block;">પધારો પરિવાર સહ...</h2>
+        <button class="open-btn" onclick="revealInvitation()">નિમંત્રણ પત્રિકા ખોલો</button>
     </div>
-
-    <div id="progressBar"></div>
-
-    <button id="topBtn">
-        <i class="fa-solid fa-arrow-up"></i>
-    </button>
-
-    <main>
-
-        <section class="hero">
-
-            <div class="hero-card">
-
-                <div class="ganesh">
-
-                    ॥ શ્રી ગણેશાય નમઃ ॥
-
-                </div>
-
-                <h1>
-                    આમંત્રણ પત્રિકા
-                </h1>
-
-                <div class="gold-line"></div>
-
-                <h2>
-                    વયનિવૃત્તિ સન્માન સમારોહ
-                </h2>
-
-            </div>
-
-        </section>
-
-        <section class="invitation">
-
-            <div class="paper">
-
-                <h3>
-                    આદરણીય શ્રી/શ્રીમતી ........................................................
-                </h3>
-
-                <p class="greeting">
-                    સાદર વંદન,
-                </p>
-
-                <p>
-
-                    પંચમહાલ ડેરી, ગોધરા ખાતે
-                    <strong>૩૬ વર્ષ</strong>
-                    સુધી નિષ્ઠાપૂર્વક,
-                    પ્રામાણિકતા તથા સમર્પિત ભાવથી
-                    સેવાઓ બજાવ્યા બાદ
-                    હું વયનિવૃત્ત થઈ રહ્યો છું.
-
-                </p>
-
-                <p>
-
-                    આ શુભ અવસરને યાદગાર બનાવવા
-                    યોજાનાર
-                    <strong>વયનિવૃત્તિ સન્માન સમારોહ</strong>
-                    માં આપની ઉપસ્થિતિ
-                    અમારા માટે સૌથી મોટું સન્માન બનશે.
-
-                </p>
-
-                <p>
-
-                    સહપરિવાર પધારી
-                    આ શુભ પ્રસંગની શોભામાં
-                    અભિવૃદ્ધિ કરશો
-                    એવી હાર્દિક વિનંતી.
-
-                </p>
-
-            </div>
-
-        </section>
-
-        <section class="event">
-
-            <h2>
-                કાર્યક્રમની રૂપરેખા
-            </h2>
-
-            <div class="event-grid">
-
-                <div class="card">
-
-                    <i class="fa-solid fa-calendar-days"></i>
-
-                    <h4>તારીખ</h4>
-
-                    <p>
-                        ૨૧-૦૭-૨૦૨૬
-                    </p>
-
-                    <span>
-                        મંગળવાર
-                    </span>
-
-                </div>
-
-                <div class="card">
-
-                    <i class="fa-solid fa-utensils"></i>
-
-                    <h4>
-
-                        ભોજન સમારંભ
-
-                    </h4>
-
-                    <p>
-
-                        સાંજે ૬:૦૦ કલાકથી
-
-                    </p>
-
-                </div>
-
-                <div class="card">
-
-                    <i class="fa-solid fa-location-dot"></i>
-
-                    <h4>
-
-                        સ્થળ
-
-                    </h4>
-
-                    <p>
-
-                        મોતી બાગ<br>
-
-                        અમદાવાદ રોડ<br>
-
-                        ગોધરા
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-                <section class="location">
-
-            <h2>સ્થળ</h2>
-
-            <div class="location-card">
-
-                <i class="fa-solid fa-map-location-dot"></i>
-
-                <h3>મોતી બાગ</h3>
-
-                <p>
-                    અમદાવાદ રોડ<br>
-                    ગોધરા
-                </p>
-
-                <a class="btn primary"
-                    href="https://maps.app.goo.gl/Kf1WDjYSbnpzySJ79?g_st=ac"
-                    target="_blank">
-
-                    <i class="fa-solid fa-location-arrow"></i>
-
-                    Google Maps
-
-                </a>
-
-            </div>
-
-        </section>
-
-
-
-        <section class="contact">
-
-            <h2>સંપર્ક</h2>
-
-            <div class="contact-buttons">
-
-                <a href="tel:9979857154" class="btn">
-
-                    <i class="fa-solid fa-phone"></i>
-
-                    ફોન કરો
-
-                </a>
-
-                <a href="https://wa.me/919979857154"
-                    target="_blank"
-                    class="btn whatsapp">
-
-                    <i class="fa-brands fa-whatsapp"></i>
-
-                    WhatsApp
-
-                </a>
-
-            </div>
-
-        </section>
-
-
-
-        <section class="host">
-
-            <div class="paper">
-
-                <h2>
-
-                    નિમંત્રક
-
-                </h2>
-
-                <div class="host-grid">
-
-                    <div class="host-left">
-
-                        <h3>
-
-                            ડૉ. કર્દમ જે. પટેલ
-
-                        </h3>
-
-                        <p>
-
-                            ડેપ્યુટી જનરલ મેનેજર
-
-                        </p>
-
-                        <p>
-
-                            પંચમહાલ ડેરી, ગોધરા
-
-                        </p>
-
-                        <p>
-
-                            <strong>
-
-                                મો. નં.: ૯૯૭૯૮૫૭૧૫૪
-
-                            </strong>
-
-                        </p>
-
-                    </div>
-
-
-
-                    <div class="host-right">
-
-                        <h3>
-
-                            વંદના કે. પટેલ
-
-                        </h3>
-
-                        <h3>
-
-                            ડૉ. ઝલકકુમાર કે. પટેલ
-
-                        </h3>
-
-                        <h3>
-
-                            ડૉ. ધરા પટેલ
-
-                        </h3>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <section class="footer-section">
-
-            <div class="paper">
-
-                <h2>
-
-                    આપના આગમનની આતુરતાપૂર્વક રાહ જોતા...
-
-                </h2>
-
-                <div class="footer-decoration">
-
-                    ❈ ❈ ❈
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-
-    <footer>
-
-        <p>
-
-            © ૨૦૨૬
-
-            વયનિવૃત્તિ સન્માન સમારોહ
-
+</div>
+
+<div class="app-container" id="main-content">
+    <div class="card">
+        <div class="ganesha-header">॥ શ્રી ગણેશાય નમઃ ॥</div>
+        
+        <!-- Center Aligned Header Component -->
+        <div class="center-heading-wrapper">
+            <h1>આમંત્રણ પત્રિકા</h1>
+            <h2>વયનિવૃત્તિ સન્માન સમારોહ</h2>
+        </div>
+        
+        <p class="salutation"><b>આદરણીય સ્નેહી શ્રી/શ્રીમતી .......................................</b></p>
+        <p><b>સાદર વંદન,</b></p>
+        
+        <p class="invitation-text">
+            પંચમહાલ ડેરી, ગોધરા ખાતે ૩૬ વર્ષ સુધી નિષ્ઠાપૂર્વક, પ્રામાણિકતા તથા સમર્પિત ભાવથી સેવાઓ બજાવ્યા બાદ હું વયનિવૃત્ત થઈ રહ્યો છું.
+        </p>
+        
+        <p class="invitation-text">
+            આ શુભ અવસરને યાદગાર બનાવવા યોજાનાર વયનિવૃત્તિ સન્માન સમારોહમાં આપની ઉપસ્થિતિ અમારા માટે સૌથી મોટું સન્માન બનશે.
         </p>
 
-    </footer>
+        <p class="invitation-text">
+            સહપરિવાર પધારી આ શુભ પ્રસંગની શોભામાં અભિવૃદ્ધિ કરશો એવી હાર્દિક વિનંતી.
+        </p>
 
+        <!-- Live Countdown Clock Layout -->
+        <div class="countdown-container">
+            <div class="countdown-title"><i class="fa-solid fa-hourglass-half"></i> સમારોહ શરૂ થવા માટે બાકી સમય</div>
+            <div class="countdown-grid">
+                <div class="countdown-box">
+                    <span class="countdown-num" id="days">00</span>
+                    <span class="countdown-label">દિવસ</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="hours">00</span>
+                    <span class="countdown-label">કલાક</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="minutes">00</span>
+                    <span class="countdown-label">મિનિટ</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="seconds">00</span>
+                    <span class="countdown-label">સેકન્ડ</span>
+                </div>
+            </div>
+        </div>
 
+        <h3>કાર્યક્રમની રૂપરેખા</h3>
+        <div class="grid">
+            <div class="box"><i class="fa-solid fa-calendar-days" style="color: var(--secondary-color);"></i> <span><strong>તા. ૨૧-૦૭-૨૦૨૬ (મંગળવાર)</strong></span></div>
+            
+            <a href="https://maps.app.goo.gl/Kf1WDjYSbnpzySJ79?g_st=ac" target="_blank" class="map-link" title="Open in Google Maps">
+                <div class="box">
+                    <i class="fa-solid fa-location-dot" style="color: #ea4335; font-size: 1.3rem;"></i> 
+                    <span><strong>મોતી બાગ, અમદાવાદ રોડ, ગોધરા <span style="font-size: 0.8rem; color:#4285F4; display:block; font-weight:normal; margin-top:2px;"><i class="fa-solid fa-map"></i> નકશો જુઓ</span></strong></span>
+                </div>
+            </a>
+            
+            <div class="box" style="grid-column: span 2;"><i class="fa-solid fa-utensils" style="color: var(--secondary-color);"></i> <span><strong>ભોજન સમારંભ: સાંજે ૬:૦૦ કલાકથી</strong></span></div>
+        </div>
 
-    <script src="main.js"></script>
+        <!-- Google Calendar Integration System Button -->
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%E0%AA%B5%E0%AA%AF%E0%AA%A8%E0%AA%BF%E0%AA%B5%E0%AB%83%E0%AA%A4%E0%AB%8D%E0%AA%A4%E0%AA%BF+%E0%AA%B8%E0%AA%A8%E0%AB%8D%E0%AA%AE%E0%AA%BE%E0%AA%A8+%E0%AA%B8%E0%AA%AE%E0%AA%BE%E0%AA%B0%E0%AA%AC+%28%E0%AA%A1%E0%AB%8D%E0%AA%Bgroup.%E0%AA%95%E0%AA%B0%E0%AB%8D%E0%AA%A6%E0%AA%AE+%E0%AA%9C%E0%AB%8D%E0%AA%AF%E0%AA%BE%E0%AA%AA%E0%AA%A4%E0%AB%87%E0%AA%B2%29&dates=20260721T180000/20260721T220000&details=%E0%AA%AA%E0%AA%82%E0%AA%9A%E0%AA%AE%E0%AA%B9%E0%AA%BE%E0%AA%B2+%E0%AA%A1%E0%AB%87%E0%AA%B0%E0%AA%BF%2B%E0%AA%97%E0%AA%B3%E0%AA%A7%E0%AA%B0%E0%AA%BE+%E0%AA%96%E0%AA%BE%E0%AA%A4%E0%AA%B7%2B%E0%AA%B8%E0%AA%B0%E0%AB%8D%E0%AA%B5%E0%AA%BF%E0%AA%B8%2B%E0%AA%A8%E0%AA%BF%E0%AA%B5%E0%AB%83%E0%AA%A4%E0%AB%8D%E0%AA%A4%E0%AA%BF&location=%E0%AA%AE%E0%AA%B3%E0%AA%A4%E0%AA%BF+%E0%AA%AC%E0%AA%BE%E0%AA%97%2B%E0%AA%85%E0%AA%AE%E0%AA%A6%E0%AA%BE%E0%AA%B5%E0%AA%BE%E0%AA%A6+%E0%AA%B0%E0%AB%8B%E0%AA%A1%2B%E0%AA%97%E0%AA%B3%E0%AA%A7%E0%AA%B0%E0%AA%BE" target="_blank" class="calendar-btn">
+            <i class="fa-regular fa-calendar-plus"></i> Google Calendar માં રીમાઇન્ડર ઉમેરો
+        </a>
+
+        <div class="divider"></div>
+
+        <h3>નિમંત્રક</h3>
+        <div class="inv-section">
+            <div class="host-main">
+                <div class="host-title">ડૉ. કર્દમ જે. પટેલ</div>
+                <div class="host-details">
+                    ડેપ્યુટી જનરલ મેનેજર<br>
+                    પંચમહાલ ડેરી, ગોધરા<br>
+                    <strong>મો. નં.:</strong> ૯૯૭૯૮૫૭૧૫૪
+                </div>
+                <a href="https://wa.me/919979857154?text=વયનિવૃત્તિ%20સન્માન%20સમારોહ%20નિમંત્રણ%20બદલ%20આભાર" target="_blank" class="whatsapp-btn">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> WhatsApp સંપર્ક
+                </a>
+            </div>
+            
+            <div class="family-list">
+                <div class="family-member">વંદના કે. પટેલ</div>
+                <div class="family-member">ડૉ. ઝલકકુમાર કે. પટેલ</div>
+                <div class="family-member">ડૉ. ધરા પટેલ</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Smooth Entry Presentation Engine
+    function revealInvitation() {
+        const overlay = document.getElementById('reveal-overlay');
+        const content = document.getElementById('main-content');
+        
+        overlay.style.opacity = '0';
+        overlay.style.transform = 'scale(1.05)';
+        
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            content.classList.add('visible');
+        }, 800);
+    }
+
+    // Precise Target Date Live Countdown Processor
+    const eventTargetDate = new Date("July 21, 2026 18:00:00").getTime();
+
+    const countdownEngine = setInterval(function() {
+        const currentSystemTime = new Date().getTime();
+        const durationRemaining = eventTargetDate - currentSystemTime;
+
+        if (durationRemaining > 0) {
+            const calculatedDays = Math.floor(durationRemaining / (1000 * 60 * 60 * 24));
+            const calculatedHours = Math.floor((durationRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const calculatedMinutes = Math.floor((durationRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const calculatedSeconds = Math.floor((durationRemaining % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(calculatedDays).padStart(2, '0');
+            document.getElementById("hours").innerText = String(calculatedHours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(calculatedMinutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(calculatedSeconds).padStart(2, '0');
+        } else {
+            clearInterval(countdownEngine);
+            document.querySelector(".countdown-container").innerHTML = "<div class='countdown-title' style='margin:0; font-size:1.2rem;'>✨ સમારોહ શરૂ થઈ ચૂક્યો છે. આપનું હાર્દિક સ્વાગત છે! ✨</div>";
+        }
+    }, 1000);
+</script>
 
 </body>
-
 </html>
+
