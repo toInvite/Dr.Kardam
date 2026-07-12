@@ -55,12 +55,10 @@
 
         .shutter-top {
             top: 0;
-            /* Removed bottom borders to eliminate the middle line completely */
         }
 
         .shutter-bottom {
             bottom: 0;
-            /* Removed top borders to eliminate the middle line completely */
         }
 
         /* Curtain Sliding Movement Trigger */
@@ -495,19 +493,14 @@
 </head>
 <body>
 
-<!-- Audio Player Element (Mellow Classical Indian Flute Background Score) -->
 <audio id="bg-flute-music" loop preload="auto">
-    <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" type="audio/wav">
-    <!-- Alternate backup stock instrumental flute mp3 -->
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mp3">
 </audio>
 
-<!-- Floating Audio Controller Switch -->
 <div class="audio-control" id="audio-toggle-widget" onclick="toggleAudioPlayback()" title="સંગીત ચાલુ/બંધ કરો">
     <i class="fa-solid fa-volume-xmark" id="audio-icon"></i>
 </div>
 
-<!-- Theatre Shutter / Curtain System Setup -->
 <div id="shutter-wrapper">
     <div class="shutter-half shutter-top"></div>
     <div class="shutter-half shutter-bottom"></div>
@@ -544,7 +537,6 @@
             સહપરિવાર પધારી આ શુભ પ્રસંગની શોભામાં અભિવૃદ્ધિ કરશો એવી હાર્દિક વિનંતી.
         </p>
 
-        <!-- Live Countdown Timer -->
         <div class="countdown-container">
             <div class="countdown-title"><i class="fa-solid fa-hourglass-half"></i> સમારોહ શરૂ થવા માટે બાકી સમય</div>
             <div class="countdown-grid">
@@ -581,7 +573,6 @@
             <div class="box box-full"><i class="fa-solid fa-utensils" style="color: var(--secondary-color); font-size: 1.3rem;"></i> <span><strong>ભોજન સમારંભ: સાંજે ૬:૦૦ કલાકથી</strong></span></div>
         </div>
 
-        <!-- Google Calendar Integration System Link Button -->
         <div style="text-align: center;">
             <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%E0%AA%B5%E0%AA%AF%E0%AA%A8%E0%AA%BF%E0%AA%B5%E0%AB%83%E0%AA%A4%E0%AB%8D%E0%AA%A4%E0%AA%BF+%E0%AA%B8%E0%AA%A8%E0%AB%8D%E0%AA%AE%E0%AA%BE%E0%AA%A8+%E0%AA%B8%E0%AA%AE%E0%AA%BE%E0%AA%B0%E0%AA%AC+%28%E0%AA%A1%E0%AB%8D%E0%AA%Bgroup.%E0%AA%95%E0%AA%B0%E0%AB%8D%E0%AA%A6%E0%AA%AE+%E0%AA%9C%E0%AB%8D%E0%AA%AF%E0%AA%AE%E0%AA%BE%E0%AA%A4%E0%AB%87%E0%AA%B2%29&dates=20260721T180000/20260721T220000&details=%E0%AA%AA%E0%AA%82%E0%AA%9A%E0%AA%AE%E0%AA%B9%E0%AA%BE%E0%AA%B2+%E0%AA%A1%E0%AB%87%E0%AA%B0%E0%AA%BF%2B%E0%AA%97%E0%AA%B3%E0%AA%A7%E0%AA%B0%E0%AA%BE+%E0%AA%96%E0%AA%BE%E0%AA%A4%E0%AA%B7%2B%E0%AA%B8%E0%AA%B0%E0%AB%8D%E0%AA%B5%E0%AA%BF%E0%AA%B8%2B%E0%AA%A8%E0%AA%BF%E0%AA%B5%E0%AB%83%E0%AA%A4%E0%AB%8D%E0%AA%A4%E0%AA%BF&location=%E0%AA%AE%E0%AA%B3%E0%AA%A4%E0%AA%BF+%E0%AA%AC%E0%AA%BE%E0%AA%97%2B%E0%AA%85%E0%AA%AE%E0%AA%A6%E0%AA%BE%E0%AA%B5%E0%AA%BE%E0%AA%A6+%E0%AA%B0%E0%AB%8B%E0%AA%A1%2B%E0%AA%97%E0%AA%B3%E0%AA%A7%E0%AA%B0%E0%AA%BE" target="_blank" class="calendar-btn">
                 <i class="fa-regular fa-calendar-plus"></i> Google Calendar માં ઉમેરો
@@ -692,3 +683,4 @@
 
 </body>
 </html>
+
