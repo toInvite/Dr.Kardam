@@ -32,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Seamless Theatre Curtain Animation System --- */
+        /* --- Seamless Theatre Silk Curtain Animation System --- */
         #shutter-wrapper {
             position: fixed;
             top: 0;
@@ -49,8 +49,8 @@
             width: 100%;
             height: 50%;
             background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
-            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
-            box-shadow: inset 0 0 100px rgba(0,0,0,0.6);
+            transition: transform 1.6s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.65);
         }
 
         .shutter-top {
@@ -128,37 +128,11 @@
             filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
         }
 
-        /* --- Audio Controller Widget --- */
-        .audio-control {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 10005;
-            background: linear-gradient(135deg, var(--secondary-color) 0%, #8a6505 100%);
-            color: white;
-            border: 2px solid var(--gold-glow);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-        .audio-control:hover {
-            transform: scale(1.1);
-        }
-        .audio-control i {
-            font-size: 1.3rem;
-        }
-
         /* --- Main Content Layout --- */
         .app-container {
             padding: 60px 20px;
             opacity: 0;
-            transform: scale(0.95);
+            transform: scale(0.96);
             transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
             max-width: 100%;
         }
@@ -493,14 +467,6 @@
 </head>
 <body>
 
-<audio id="bg-flute-music" loop preload="auto">
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mp3">
-</audio>
-
-<div class="audio-control" id="audio-toggle-widget" onclick="toggleAudioPlayback()" title="સંગીત ચાલુ/બંધ કરો">
-    <i class="fa-solid fa-volume-xmark" id="audio-icon"></i>
-</div>
-
 <div id="shutter-wrapper">
     <div class="shutter-half shutter-top"></div>
     <div class="shutter-half shutter-bottom"></div>
@@ -563,7 +529,7 @@
         <div class="grid">
             <div class="box"><i class="fa-solid fa-calendar-days" style="color: var(--secondary-color); font-size: 1.3rem;"></i> <span><strong>તા. ૨૧-૦૭-૨૦૨૬ (મંગળવાર)</strong></span></div>
             
-            <a href="https://maps.app.goo.gl/Kf1WDjYSbnpzySJ79?g_st=ac" target="_blank" class="map-link" title="Open in Google Maps">
+            <a href="https://maps.google.com" target="_blank" class="map-link" title="Open in Google Maps">
                 <div class="box">
                     <i class="fa-solid fa-location-dot" style="color: #ea4335; font-size: 1.4rem;"></i> 
                     <span><strong>મોતી બાગ, અમદાવાદ રોડ, ગોધરા <span style="font-size: 0.85rem; color:#4285F4; display:block; font-weight:normal; margin-top:2px;"><i class="fa-solid fa-map-navigator"></i> નકશો જુઓ</span></strong></span>
@@ -607,10 +573,7 @@
 </div>
 
 <script>
-    const backgroundMusic = document.getElementById('bg-flute-music');
-    const audioIcon = document.getElementById('audio-icon');
-
-    // Automatic Curtain & Audio Trigger Sequence on Dom Content Loaded
+    // Automatic Curtain Trigger Sequence on Dom Content Loaded
     window.addEventListener('DOMContentLoaded', () => {
         const shutterWrapper = document.getElementById('shutter-wrapper');
         const shutterText = document.getElementById('shutter-text');
@@ -620,42 +583,18 @@
         setTimeout(() => {
             shutterText.classList.add('fade-out');
             
-            // Step 2: Slide the curtain layers wide open (top goes up, bottom goes down)
+            // Step 2: Slide the curtain layers wide open smoothly (top goes up, bottom goes down)
             setTimeout(() => {
                 shutterWrapper.classList.add('open');
                 mainContent.classList.add('visible');
                 
-                // Attempt automatic music trigger (Muted default browser safety bypass handle)
-                attemptMusicAutoplay();
-                
-                // Step 3: Clean up and remove curtain wrappers completely from view logic
+                // Step 3: Clean up and remove curtain wrappers completely
                 setTimeout(() => {
                     shutterWrapper.style.display = 'none';
-                }, 1500);
+                }, 1600);
             }, 600);
         }, 2000);
     });
-
-    // Handle Modern Browser Media Engagement Safety Guards
-    function attemptMusicAutoplay() {
-        backgroundMusic.play().then(() => {
-            // If browser allows autoplay, immediately flip interface layout to sound-on mode
-            audioIcon.className = 'fa-solid fa-volume-high';
-        }).catch((error) => {
-            console.log("Autoplay blocked by browser policy. Awaiting manual user click.");
-        });
-    }
-
-    // Explicit Manual Audio Controller Widget Actions
-    function toggleAudioPlayback() {
-        if (backgroundMusic.paused) {
-            backgroundMusic.play();
-            audioIcon.className = 'fa-solid fa-volume-high';
-        } else {
-            backgroundMusic.pause();
-            audioIcon.className = 'fa-solid fa-volume-xmark';
-        }
-    }
 
     // Live Target Date Countdown Processing System
     const eventTargetDate = new Date("July 21, 2026 18:00:00").getTime();
@@ -676,11 +615,5 @@
             document.getElementById("seconds").innerText = String(calculatedSeconds).padStart(2, '0');
         } else {
             clearInterval(countdownEngine);
-            document.querySelector(".countdown-container").innerHTML = "<div class='countdown-title' style='margin:0; font-size:1.2rem;'>✨ સમારોહ શરૂ થઈ ચૂક્યો છે. આપનું હાર્દિક સ્વાગત છે! ✨</div>";
-        }
-    }, 1000);
-</script>
-
-</body>
-</html>
+            document.querySelector(".countdown-container").innerHTML = "<div class='countdown-title' style='margin:0; font-size:1.2rem;'>✨ સમારો
 
