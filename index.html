@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #800000; 
+            --primary-color: #7A1F1F; 
             --secondary-color: #B8860B; 
             --gold-glow: #FFD700;
             --text-dark: #3a2214;
@@ -23,8 +23,7 @@
         body {
             font-family: 'Noto Sans Gujarati', sans-serif;
             background-color: var(--bg-cream);
-            /* Subtle royal texture effect using CSS background pattern */
-            background-image: radial-gradient(circle at 50% 50%, rgba(184, 134, 11, 0.03) 1px, transparent 1px);
+            background-image: radial-gradient(circle at 50% 50%, rgba(184, 134, 11, 0.04) 1px, transparent 1px);
             background-size: 24px 24px;
             margin: 0;
             padding: 0;
@@ -33,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Rich Shutter Sliding Animation System --- */
+        /* --- Seamless Theatre Curtain Animation System --- */
         #shutter-wrapper {
             position: fixed;
             top: 0;
@@ -41,7 +40,7 @@
             width: 100vw;
             height: 100vh;
             z-index: 9999;
-            pointer-events: auto;
+            overflow: hidden;
         }
 
         .shutter-half {
@@ -49,24 +48,22 @@
             left: 0;
             width: 100%;
             height: 50%;
-            background: radial-gradient(circle, #FFFDF9 30%, #F5EBD3 100%);
-            border: 4px solid var(--primary-color);
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
+            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.6);
         }
 
         .shutter-top {
             top: 0;
-            border-bottom: 3px double var(--secondary-color);
-            transform-origin: top;
+            /* Removed bottom borders to eliminate the middle line completely */
         }
 
         .shutter-bottom {
             bottom: 0;
-            border-top: 3px double var(--secondary-color);
-            transform-origin: bottom;
+            /* Removed top borders to eliminate the middle line completely */
         }
 
-        /* Splitting movement classes */
+        /* Curtain Sliding Movement Trigger */
         #shutter-wrapper.open .shutter-top {
             transform: translateY(-100%);
         }
@@ -75,7 +72,7 @@
             transform: translateY(100%);
         }
 
-        /* Overlay Central Text Content */
+        /* Smooth Text Dissolve Overlay */
         .shutter-content {
             position: absolute;
             top: 50%;
@@ -85,74 +82,92 @@
             width: 90%;
             max-width: 600px;
             z-index: 10000;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            color: #FFFDF9;
+        }
+
+        .shutter-content.fade-out {
+            opacity: 0;
+            transform: translate(-50%, -60%);
         }
 
         .shutter-title {
-            color: var(--primary-color);
-            font-size: 2.2rem;
+            color: var(--gold-glow);
+            font-size: 2.4rem;
             font-weight: 700;
-            margin: 0 0 5px 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin: 0 0 8px 0;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         .shutter-subtitle {
-            color: var(--secondary-color);
-            font-size: 1.5rem;
+            color: #FFF;
+            font-size: 1.6rem;
             font-weight: 500;
-            margin: 0 0 10px 0;
+            margin: 0 0 15px 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
         }
 
         .shutter-name {
-            color: var(--primary-color);
-            font-size: 1.35rem;
+            color: var(--gold-glow);
+            font-size: 1.4rem;
             font-weight: 700;
-            margin: 0 0 30px 0;
-            background: rgba(122, 31, 31, 0.05);
-            padding: 5px 15px;
-            border-radius: 20px;
+            margin: 0;
+            background: rgba(255, 215, 0, 0.15);
+            padding: 6px 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 30px;
             display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .shutter-content i {
-            font-size: 3.5rem;
-            color: var(--primary-color);
+            font-size: 3.8rem;
+            color: var(--gold-glow);
             animation: pulse 1.5s infinite alternate;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: block;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
         }
 
-        .open-btn {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #5c0000 100%);
-            color: #fff;
-            border: 2px solid var(--secondary-color);
-            padding: 14px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(122, 31, 31, 0.4);
-            transition: all 0.4s ease;
-        }
-
-        .open-btn:hover {
+        /* --- Audio Controller Widget --- */
+        .audio-control {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 10005;
             background: linear-gradient(135deg, var(--secondary-color) 0%, #8a6505 100%);
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(184, 134, 11, 0.4);
+            color: white;
+            border: 2px solid var(--gold-glow);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .audio-control:hover {
+            transform: scale(1.1);
+        }
+        .audio-control i {
+            font-size: 1.3rem;
         }
 
-        /* --- Main Layout Design --- */
+        /* --- Main Content Layout --- */
         .app-container {
             padding: 60px 20px;
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.2s ease 0.3s, transform 1.2s ease 0.3s;
+            transform: scale(0.95);
+            transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
             max-width: 100%;
         }
 
         .app-container.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1);
         }
 
         .card {
@@ -162,12 +177,11 @@
             border: 4px double var(--secondary-color);
             outline: 16px solid var(--primary-color);
             border-radius: 16px;
-            padding: 50px 50px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.15), inset 0 0 40px rgba(184, 134, 11, 0.05);
+            padding: 60px 50px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.2), inset 0 0 50px rgba(184, 134, 11, 0.06);
             position: relative;
         }
 
-        /* Corner Ornamental Flourishes */
         .card::before, .card::after {
             content: "✦";
             position: absolute;
@@ -189,19 +203,19 @@
 
         .center-heading-wrapper {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 45px;
         }
 
         h1 {
             color: var(--primary-color);
-            font-size: 2.6rem;
+            font-size: 2.8rem;
             margin: 0 0 10px 0;
             font-weight: 700;
         }
 
         h2 {
             color: var(--secondary-color);
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 500;
             margin: 0 auto;
             padding-bottom: 15px;
@@ -210,14 +224,14 @@
         }
 
         .invitation-text {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             text-align: center;
-            margin-bottom: 22px;
-            padding: 0 10px;
+            margin-bottom: 24px;
+            padding: 0 15px;
         }
 
         .salutation {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             margin-bottom: 15px;
             color: var(--primary-color);
             text-align: left;
@@ -225,7 +239,7 @@
             padding-left: 12px;
         }
 
-        /* Premium Live Countdown Design */
+        /* Countdown Clock Section */
         .countdown-container {
             background: linear-gradient(135deg, #FFFDF9 0%, #FAF2DF 100%);
             border: 2px solid var(--secondary-color);
@@ -233,15 +247,14 @@
             padding: 25px;
             margin: 40px 0;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(184, 134, 11, 0.08);
+            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.08);
         }
 
         .countdown-title {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--primary-color);
             margin-bottom: 20px;
             font-weight: 700;
-            letter-spacing: 0.5px;
         }
 
         .countdown-grid {
@@ -260,41 +273,36 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
             transition: transform 0.3s;
         }
-        .countdown-box:hover {
-            transform: translateY(-3px);
-            border-color: var(--primary-color);
-        }
 
         .countdown-num {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--primary-color);
             display: block;
         }
 
         .countdown-label {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-dark);
             font-weight: 500;
         }
 
         h3 {
             color: var(--primary-color);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin: 45px 0 25px 0;
             text-align: center;
-            position: relative;
         }
         h3::after {
             content: '';
             display: block;
-            width: 60px;
+            width: 70px;
             height: 2px;
             background-color: var(--secondary-color);
             margin: 8px auto 0 auto;
         }
 
-        /* --- Fully Responsive Outline/Timeline Blocks --- */
+        /* --- Rich Structure Layouts --- */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -306,14 +314,14 @@
             background-color: #FFF;
             border: 1px solid rgba(184, 134, 11, 0.25);
             border-left: 5px solid var(--secondary-color);
-            padding: 20px;
+            padding: 22px;
             border-radius: 8px;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             display: flex;
             align-items: center;
             gap: 16px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.35s ease;
         }
 
         .box:hover {
@@ -325,7 +333,7 @@
         .box-full {
             grid-column: span 2;
             border-left-color: var(--primary-color);
-            background: linear-gradient(to right, #ffffff, #fffdf7);
+            background: linear-gradient(to right, #ffffff, #fffdf6);
         }
 
         .map-link {
@@ -335,11 +343,7 @@
         .map-link .box {
             border-left-color: #34a853; 
         }
-        .map-link .box:hover {
-            border-left-color: #1e7e34;
-        }
 
-        /* Calendar Button Styling */
         .calendar-btn {
             display: inline-flex;
             align-items: center;
@@ -352,7 +356,7 @@
             border: 2px solid #4285F4;
             color: #4285F4;
             text-align: center;
-            padding: 12px 20px;
+            padding: 12px 24px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
@@ -360,7 +364,6 @@
             box-shadow: 0 4px 12px rgba(66, 133, 244, 0.12);
             transition: all 0.3s ease;
         }
-
         .calendar-btn:hover {
             background-color: #4285F4;
             color: #fff;
@@ -374,11 +377,11 @@
             margin: 40px 0;
         }
 
-        /* --- Fully Responsive Host/Inviter Layout --- */
+        /* --- Hosts Grid Design --- */
         .inv-section {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
-            gap: 30px;
+            gap: 35px;
             align-items: stretch;
         }
 
@@ -390,19 +393,17 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: inset 0 0 15px rgba(184, 134, 11, 0.03);
         }
 
         .host-title {
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             color: var(--primary-color);
-            margin-bottom: 5px;
         }
 
         .host-details {
-            font-size: 1.05rem;
-            margin-top: 5px;
+            font-size: 1.1rem;
+            margin-top: 6px;
             margin-bottom: 20px;
         }
 
@@ -414,18 +415,16 @@
             background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             color: white;
             text-decoration: none;
-            padding: 10px 22px;
+            padding: 11px 24px;
             border-radius: 50px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: bold;
             align-self: flex-start;
             box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
             transition: all 0.3s ease;
         }
-
         .whatsapp-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(184, 134, 11, 0.2);
             filter: brightness(1.05);
         }
 
@@ -439,57 +438,47 @@
 
         .family-member {
             font-weight: 500;
-            margin-bottom: 15px;
-            font-size: 1.15rem;
+            margin-bottom: 16px;
+            font-size: 1.2rem;
             position: relative;
             list-style: none;
         }
         .family-member::before {
             content: "•";
             color: var(--primary-color);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             position: absolute;
             left: -20px;
             top: -2px;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.9; }
-            100% { transform: scale(1.06); opacity: 1; }
+            0% { transform: scale(1); opacity: 0.85; }
+            100% { transform: scale(1.05); opacity: 1; }
         }
 
-        /* --- High Fidelity Responsive Media Queries --- */
+        /* --- High Fidelity Responsive Media Quirks --- */
         @media (max-width: 768px) {
-            body { line-height: 1.7; }
-            .shutter-title { font-size: 1.7rem; }
-            .shutter-subtitle { font-size: 1.2rem; }
+            .shutter-title { font-size: 1.8rem; }
+            .shutter-subtitle { font-size: 1.3rem; }
             .shutter-name { font-size: 1.15rem; }
-            .open-btn { padding: 12px 32px; font-size: 1.1rem; }
 
             .app-container { padding: 30px 12px; }
-            .card { padding: 40px 20px; outline: 8px solid var(--primary-color); }
-            .card::before { left: 12px; }
-            .card::after { right: 12px; }
+            .card { padding: 45px 20px; outline: 8px solid var(--primary-color); }
             
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.4rem; }
-            .salutation { font-size: 1.1rem; text-align: center; padding-left: 0; border-left: none; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.5rem; }
+            .salutation { font-size: 1.15rem; text-align: center; padding-left: 0; border-left: none; border-bottom: 1px solid #eee; padding-bottom: 8px; }
 
-            .countdown-container { padding: 18px 10px; margin: 30px 0; }
-            .countdown-title { font-size: 0.95rem; margin-bottom: 12px; }
             .countdown-grid { gap: 8px; }
-            .countdown-num { font-size: 1.4rem; }
-            .countdown-label { font-size: 0.75rem; }
+            .countdown-num { font-size: 1.5rem; }
+            .countdown-label { font-size: 0.8rem; }
 
-            /* Grid conversion to single column for perfect mobile stacked layout */
             .grid { grid-template-columns: 1fr; gap: 15px; }
             .box-full { grid-column: span 1; }
-            .box { padding: 16px; font-size: 1rem; }
-
-            .calendar-btn { max-width: 100%; }
-
-            .inv-section { grid-template-columns: 1fr; gap: 20px; }
-            .host-main { padding: 22px; text-align: center; align-items: center; }
+            
+            .inv-section { grid-template-columns: 1fr; gap: 25px; }
+            .host-main { padding: 25px; text-align: center; align-items: center; }
             .whatsapp-btn { align-self: center; width: 100%; }
             
             .family-list {
@@ -499,14 +488,26 @@
                 padding-top: 25px;
                 align-items: center;
             }
-            .family-member { text-align: center; margin-bottom: 10px; }
+            .family-member { text-align: center; }
             .family-member::before { display: none; }
         }
     </style>
 </head>
 <body>
 
-<!-- Rich Shutter Sliding Interface Wrapper -->
+<!-- Audio Player Element (Mellow Classical Indian Flute Background Score) -->
+<audio id="bg-flute-music" loop preload="auto">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" type="audio/wav">
+    <!-- Alternate backup stock instrumental flute mp3 -->
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+</audio>
+
+<!-- Floating Audio Controller Switch -->
+<div class="audio-control" id="audio-toggle-widget" onclick="toggleAudioPlayback()" title="સંગીત ચાલુ/બંધ કરો">
+    <i class="fa-solid fa-volume-xmark" id="audio-icon"></i>
+</div>
+
+<!-- Theatre Shutter / Curtain System Setup -->
 <div id="shutter-wrapper">
     <div class="shutter-half shutter-top"></div>
     <div class="shutter-half shutter-bottom"></div>
@@ -516,9 +517,6 @@
         <h2 class="shutter-title">આમંત્રણ પત્રિકા</h2>
         <div class="shutter-subtitle">વયનિવૃત્તિ સન્માન સમારોહ</div>
         <div class="shutter-name">(ડૉ. કર્દમ જે. પટેલ)</div>
-        <div style="margin-top: 10px;">
-            <button class="open-btn" onclick="triggerShutterRelease()">નિમંત્રણ પત્રિકા ખોલો</button>
-        </div>
     </div>
 </div>
 
@@ -546,7 +544,7 @@
             સહપરિવાર પધારી આ શુભ પ્રસંગની શોભામાં અભિવૃદ્ધિ કરશો એવી હાર્દિક વિનંતી.
         </p>
 
-        <!-- Live Countdown Component -->
+        <!-- Live Countdown Timer -->
         <div class="countdown-container">
             <div class="countdown-title"><i class="fa-solid fa-hourglass-half"></i> સમારોહ શરૂ થવા માટે બાકી સમય</div>
             <div class="countdown-grid">
@@ -571,7 +569,7 @@
 
         <h3>કાર્યક્રમની રૂપરેખા</h3>
         <div class="grid">
-            <div class="box"><i class="fa-solid fa-calendar-days" style="color: var(--secondary-color); font-size: 1.3rem;"></i> <span><strong>તા. ૨૧-૦૭-૨૦26 (મંગળવાર)</strong></span></div>
+            <div class="box"><i class="fa-solid fa-calendar-days" style="color: var(--secondary-color); font-size: 1.3rem;"></i> <span><strong>તા. ૨૧-૦૭-૨૦૨૬ (મંગળવાર)</strong></span></div>
             
             <a href="https://maps.app.goo.gl/Kf1WDjYSbnpzySJ79?g_st=ac" target="_blank" class="map-link" title="Open in Google Maps">
                 <div class="box">
@@ -583,9 +581,9 @@
             <div class="box box-full"><i class="fa-solid fa-utensils" style="color: var(--secondary-color); font-size: 1.3rem;"></i> <span><strong>ભોજન સમારંભ: સાંજે ૬:૦૦ કલાકથી</strong></span></div>
         </div>
 
-        <!-- Google Calendar Reminder Sync Integration -->
+        <!-- Google Calendar Integration System Link Button -->
         <div style="text-align: center;">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%E0%AA%B5%E0%AA%AF%E0%AA%A8%E0%AA%BF%E0%AA%B5%E0%AB%83%E0%AA%A4%E0%AB%8D%E0%AA%A4%E0%AA%BF+%E0%AA%B8%E0%AA%A8%E0%AB%8D%E0%AA%AE%E0%AA%BE%E0%AA%A8+%E0%AA%B8%E0%AA%AE%E0%AA%BE%E0%AA%B0%E0%AA%AC+%28%E0%AA%A1%E0%AB%8D%E0%AA%Bgroup.%E0%AA%95%E0%AA%B0%E0%AB%8D%E0%AA%A6%E0%AA%AE+%E0%AA%9C%E0%AB%8D%E0%AA%AF%E0%AA%AE%E0%AA%BE%E0%AA%AA%E0%AA%A4%E0%AB%87%E0%AA%B2%29&dates=20260721T180000/20260721T220000&details=%E0%AA%AA%E0%AA%82%E0%AA%9A%E0%AA%AE%E0%AA%B9%E0%AA%BE%E0%AA%B2+%E0%AA%A1%E0%AB%87%E0%AA%B0%E0%AA%BF%2B%E0%AA%97%E0%AA%B3%E0%AA%A7%E0%AA%B0%E0%AA%BE+%E0%AA%96%E0%AA%BE%E0%AA%A4%E0%AA%B7%2B%E0%AA%B8%E0%AA%B0%E0%AB%8D%E0%AA%B5%E0%AA%BF%E0%AA%B8%2B%E0%AA%A8%E0%AA%BF%E0%AA%B5%E0%AB%83%E0%AA%A4%E0%AB%8D%E0%AA%A4%E0%AA%BF&location=%E0%AA%AE%E0%AA%B3%E0%AA%A4%E0%AA%BF+%E0%AA%AC%E0%AA%BE%E0%AA%97%2B%E0%AA%85%E0%AA%AE%E0%AA%A6%E0%AA%BE%E0%AA%B5%E0%AA%BE%E0%AA%A6+%E0%AA%B0%E0%AB%8B%E0%AA%A1%2B%E0%AA%97%E0%AA%B3%E0%AA%A7%E0%AA%B0%E0%AA%BE" target="_blank" class="calendar-btn">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%E0%AA%B5%E0%AA%AF%E0%AA%A8%E0%AA%BF%E0%AA%B5%E0%AB%83%E0%AA%A4%E0%AB%8D%E0%AA%A4%E0%AA%BF+%E0%AA%B8%E0%AA%A8%E0%AB%8D%E0%AA%AE%E0%AA%BE%E0%AA%A8+%E0%AA%B8%E0%AA%AE%E0%AA%BE%E0%AA%B0%E0%AA%AC+%28%E0%AA%A1%E0%AB%8D%E0%AA%Bgroup.%E0%AA%95%E0%AA%B0%E0%AB%8D%E0%AA%A6%E0%AA%AE+%E0%AA%9C%E0%AB%8D%E0%AA%AF%E0%AA%AE%E0%AA%BE%E0%AA%A4%E0%AB%87%E0%AA%B2%29&dates=20260721T180000/20260721T220000&details=%E0%AA%AA%E0%AA%82%E0%AA%9A%E0%AA%AE%E0%AA%B9%E0%AA%BE%E0%AA%B2+%E0%AA%A1%E0%AB%87%E0%AA%B0%E0%AA%BF%2B%E0%AA%97%E0%AA%B3%E0%AA%A7%E0%AA%B0%E0%AA%BE+%E0%AA%96%E0%AA%BE%E0%AA%A4%E0%AA%B7%2B%E0%AA%B8%E0%AA%B0%E0%AB%8D%E0%AA%B5%E0%AA%BF%E0%AA%B8%2B%E0%AA%A8%E0%AA%BF%E0%AA%B5%E0%AB%83%E0%AA%A4%E0%AB%8D%E0%AA%A4%E0%AA%BF&location=%E0%AA%AE%E0%AA%B3%E0%AA%A4%E0%AA%BF+%E0%AA%AC%E0%AA%BE%E0%AA%97%2B%E0%AA%85%E0%AA%AE%E0%AA%A6%E0%AA%BE%E0%AA%B5%E0%AA%BE%E0%AA%A6+%E0%AA%B0%E0%AB%8B%E0%AA%A1%2B%E0%AA%97%E0%AA%B3%E0%AA%A7%E0%AA%B0%E0%AA%BE" target="_blank" class="calendar-btn">
                 <i class="fa-regular fa-calendar-plus"></i> Google Calendar માં ઉમેરો
             </a>
         </div>
@@ -600,7 +598,7 @@
                     <div class="host-details">
                         ડેપ્યુટી જનરલ મેનેજર<br>
                         પંચમહાલ ડેરી, ગોધરા<br>
-                        <strong>મો. નં.:</strong> ૯૯૭૯૮૫停૧૫૪
+                        <strong>મો. નં.:</strong> ૯૯૭૯૮૫૭૧૫૪
                     </div>
                 </div>
                 <a href="https://wa.me/919979857154?text=વયનિવૃત્તિ%20સન્માન%20સમારોહ%20નિમંત્રણ%20બદલ%20આભાર" target="_blank" class="whatsapp-btn">
@@ -618,25 +616,54 @@
 </div>
 
 <script>
-    // Shutter Sliding Animation Trigger
-    function triggerShutterRelease() {
+    const backgroundMusic = document.getElementById('bg-flute-music');
+    const audioIcon = document.getElementById('audio-icon');
+
+    // Automatic Curtain & Audio Trigger Sequence on Dom Content Loaded
+    window.addEventListener('DOMContentLoaded', () => {
         const shutterWrapper = document.getElementById('shutter-wrapper');
         const shutterText = document.getElementById('shutter-text');
         const mainContent = document.getElementById('main-content');
         
-        // Hide the text smoothly first
-        shutterText.style.opacity = '0';
-        
+        // Step 1: Wait 2 seconds with text visible, then fade out text smoothly
         setTimeout(() => {
-            // Activate the top & bottom split CSS animations
-            shutterWrapper.classList.add('open');
-            mainContent.classList.add('visible');
+            shutterText.classList.add('fade-out');
             
-            // Completely disable shutter interaction after completion
+            // Step 2: Slide the curtain layers wide open (top goes up, bottom goes down)
             setTimeout(() => {
-                shutterWrapper.style.display = 'none';
-            }, 1200);
-        }, 300);
+                shutterWrapper.classList.add('open');
+                mainContent.classList.add('visible');
+                
+                // Attempt automatic music trigger (Muted default browser safety bypass handle)
+                attemptMusicAutoplay();
+                
+                // Step 3: Clean up and remove curtain wrappers completely from view logic
+                setTimeout(() => {
+                    shutterWrapper.style.display = 'none';
+                }, 1500);
+            }, 600);
+        }, 2000);
+    });
+
+    // Handle Modern Browser Media Engagement Safety Guards
+    function attemptMusicAutoplay() {
+        backgroundMusic.play().then(() => {
+            // If browser allows autoplay, immediately flip interface layout to sound-on mode
+            audioIcon.className = 'fa-solid fa-volume-high';
+        }).catch((error) => {
+            console.log("Autoplay blocked by browser policy. Awaiting manual user click.");
+        });
+    }
+
+    // Explicit Manual Audio Controller Widget Actions
+    function toggleAudioPlayback() {
+        if (backgroundMusic.paused) {
+            backgroundMusic.play();
+            audioIcon.className = 'fa-solid fa-volume-high';
+        } else {
+            backgroundMusic.pause();
+            audioIcon.className = 'fa-solid fa-volume-xmark';
+        }
     }
 
     // Live Target Date Countdown Processing System
@@ -665,4 +692,3 @@
 
 </body>
 </html>
-
