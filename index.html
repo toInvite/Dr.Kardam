@@ -32,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Theatre Silk Curtain System Fixes --- */
+        /* --- Royal Curtain Layer Styling --- */
         #shutter-wrapper {
             position: fixed;
             top: 0;
@@ -41,39 +41,37 @@
             height: 100vh;
             z-index: 9999;
             overflow: hidden;
-            pointer-events: auto;
+            transition: visibility 1.5s;
         }
 
         .shutter-half {
             position: absolute;
             left: 0;
             width: 100%;
-            height: 50.5%; /* Overlay slightly to guarantee NO middle line visibility */
+            height: 50.5%; /* Overlap slightly to avoid tiny gaps */
             background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
-            transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
             box-shadow: inset 0 0 100px rgba(0,0,0,0.65);
         }
 
         .shutter-top {
             top: 0;
-            transform: translateY(0);
         }
 
         .shutter-bottom {
             bottom: 0;
-            transform: translateY(0);
         }
 
-        /* Shutter Open States */
+        /* Trigger Animation State via JavaScript */
         #shutter-wrapper.open .shutter-top {
-            transform: translateY(-101%);
+            transform: translateY(-100%);
         }
 
         #shutter-wrapper.open .shutter-bottom {
-            transform: translateY(101%);
+            transform: translateY(100%);
         }
 
-        /* Shutter Text Content Logic */
+        /* Text Dissolve Overlay inside the Curtain */
         .shutter-content {
             position: absolute;
             top: 50%;
@@ -83,13 +81,13 @@
             width: 90%;
             max-width: 600px;
             z-index: 10000;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.6s ease, transform 0.6s ease;
             color: #FFFDF9;
         }
 
         .shutter-content.fade-out {
             opacity: 0;
-            transform: translate(-50%, -55%);
+            transform: translate(-50%, -60%);
         }
 
         .shutter-title {
@@ -97,7 +95,6 @@
             font-size: 2.4rem;
             font-weight: 700;
             margin: 0 0 8px 0;
-            letter-spacing: 1px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
@@ -119,7 +116,6 @@
             border: 1px solid rgba(255, 215, 0, 0.3);
             border-radius: 30px;
             display: inline-block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .shutter-content i {
@@ -128,22 +124,19 @@
             animation: pulse 1.5s infinite alternate;
             margin-bottom: 20px;
             display: block;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
         }
 
-        /* --- Main Invitation Card Visibility Fix --- */
+        /* --- Main Invitation Layout Transition --- */
         .app-container {
             padding: 60px 20px;
             opacity: 0;
-            visibility: hidden;
             transform: scale(0.96);
-            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s;
+            transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
             max-width: 100%;
         }
 
         .app-container.visible {
             opacity: 1;
-            visibility: visible;
             transform: scale(1);
         }
 
@@ -164,7 +157,6 @@
             position: absolute;
             color: var(--secondary-color);
             font-size: 26px;
-            text-shadow: 0 0 5px rgba(184, 134, 11, 0.3);
         }
         .card::before { top: 15px; left: 20px; }
         .card::after { top: 15px; right: 20px; }
@@ -175,7 +167,6 @@
             font-weight: 700;
             color: var(--primary-color);
             margin-bottom: 30px;
-            letter-spacing: 1px;
         }
 
         .center-heading-wrapper {
@@ -216,7 +207,7 @@
             padding-left: 12px;
         }
 
-        /* Countdown Timer Clock Styles */
+        /* Countdown Grid Styles */
         .countdown-container {
             background: linear-gradient(135deg, #FFFDF9 0%, #FAF2DF 100%);
             border: 2px solid var(--secondary-color);
@@ -247,8 +238,6 @@
             border: 1px solid rgba(184, 134, 11, 0.3);
             padding: 12px 5px;
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            transition: transform 0.3s;
         }
 
         .countdown-num {
@@ -261,7 +250,6 @@
         .countdown-label {
             font-size: 0.9rem;
             color: var(--text-dark);
-            font-weight: 500;
         }
 
         h3 {
@@ -279,7 +267,7 @@
             margin: 8px auto 0 auto;
         }
 
-        /* Grid Infrastructure Box Designs */
+        /* Grid Infrastructure Configurations */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -297,28 +285,22 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
             transition: all 0.35s ease;
         }
 
         .box:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 25px rgba(184, 134, 11, 0.15);
-            border-left-color: var(--primary-color);
         }
 
         .box-full {
             grid-column: span 2;
             border-left-color: var(--primary-color);
-            background: linear-gradient(to right, #ffffff, #fffdf6);
         }
 
         .map-link {
             text-decoration: none;
             color: inherit;
-        }
-        .map-link .box {
-            border-left-color: #34a853; 
         }
 
         .calendar-btn {
@@ -332,20 +314,10 @@
             background-color: #fff;
             border: 2px solid #4285F4;
             color: #4285F4;
-            text-align: center;
             padding: 12px 24px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1rem;
-            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.12);
-            transition: all 0.3s ease;
-        }
-        .calendar-btn:hover {
-            background-color: #4285F4;
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(66, 133, 244, 0.25);
         }
 
         .divider {
@@ -354,12 +326,11 @@
             margin: 40px 0;
         }
 
-        /* Hosts Layout Structure */
+        /* Hosts Structure */
         .inv-section {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
             gap: 35px;
-            align-items: stretch;
         }
 
         .host-main {
@@ -394,23 +365,12 @@
             text-decoration: none;
             padding: 11px 24px;
             border-radius: 50px;
-            font-size: 1rem;
             font-weight: bold;
-            align-self: flex-start;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-            transition: all 0.3s ease;
-        }
-        .whatsapp-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.05);
         }
 
         .family-list {
             padding: 20px 0 20px 30px;
             border-left: 3px double var(--secondary-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
 
         .family-member {
@@ -423,49 +383,32 @@
         .family-member::before {
             content: "•";
             color: var(--primary-color);
-            font-size: 1.6rem;
             position: absolute;
             left: -20px;
-            top: -2px;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.85; }
-            100% { transform: scale(1.04); opacity: 1; }
+            100% { transform: scale(1.05); opacity: 1; }
         }
 
-        /* --- Mobile Quirks Layout Breakpoints --- */
+        /* Mobile Breakpoints */
         @media (max-width: 768px) {
             .shutter-title { font-size: 1.8rem; }
             .shutter-subtitle { font-size: 1.3rem; }
-            .shutter-name { font-size: 1.15rem; }
-
             .app-container { padding: 30px 12px; }
             .card { padding: 45px 20px; outline: 8px solid var(--primary-color); }
-            
             h1 { font-size: 2.2rem; }
             h2 { font-size: 1.5rem; }
-            .salutation { font-size: 1.15rem; text-align: center; padding-left: 0; border-left: none; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-
+            .salutation { text-align: center; padding-left: 0; border-left: none; border-bottom: 1px solid #eee; }
             .countdown-grid { gap: 8px; }
             .countdown-num { font-size: 1.5rem; }
-            .countdown-label { font-size: 0.8rem; }
-
-            .grid { grid-template-columns: 1fr; gap: 15px; }
+            .grid { grid-template-columns: 1fr; }
             .box-full { grid-column: span 1; }
-            
             .inv-section { grid-template-columns: 1fr; gap: 25px; }
-            .host-main { padding: 25px; text-align: center; align-items: center; }
-            .whatsapp-btn { align-self: center; width: 100%; }
-            
-            .family-list {
-                border-left: none;
-                border-top: 2px double var(--secondary-color);
-                padding-left: 0;
-                padding-top: 25px;
-                align-items: center;
-            }
-            .family-member { text-align: center; }
+            .host-main { text-align: center; align-items: center; }
+            .whatsapp-btn { width: 100%; }
+            .family-list { border-left: none; border-top: 2px double var(--secondary-color); padding-left: 0; padding-top: 25px; text-align: center; }
             .family-member::before { display: none; }
         }
     </style>
@@ -534,10 +477,10 @@
         <div class="grid">
             <div class="box"><i class="fa-solid fa-calendar-days" style="color: var(--secondary-color); font-size: 1.3rem;"></i> <span><strong>તા. ૨૧-૦૭-૨૦૨૬ (મંગળવાર)</strong></span></div>
             
-            <a href="https://maps.google.com" target="_blank" class="map-link" title="Open in Google Maps">
+            <a href="https://maps.google.com/?q=Moti+Bagh+Godhra" target="_blank" class="map-link">
                 <div class="box">
                     <i class="fa-solid fa-location-dot" style="color: #ea4335; font-size: 1.4rem;"></i> 
-                    <span><strong>મોતી બાગ, અમદાવાદ રોડ, ગોધરા <span style="font-size: 0.85rem; color:#4285F4; display:block; font-weight:normal; margin-top:2px;"><i class="fa-solid fa-map-navigator"></i> નકશો જુઓ</span></strong></span>
+                    <span><strong>મોતી બાગ, Ahmedabad Road, ગોધરા <span style="font-size: 0.85rem; color:#4285F4; display:block; font-weight:normal; margin-top:2px;"><i class="fa-solid fa-map-navigator"></i> નકશો જુઓ</span></strong></span>
                 </div>
             </a>
             
@@ -563,8 +506,8 @@
                         <strong>મો. નં.:</strong> ૯૯૭૯૮૫૭૧૫૪
                     </div>
                 </div>
-                <a href="https://wa.me/919979857154?text=વયનિવૃત્તિ%20સન્માન%20સમારોહ%20નિમંત્રણ%20બદલ%20આભાર" target="_blank" class="whatsapp-btn">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> WhatsApp સંપર્ક
+                <a href="https://wa.me/919979857154" target="_blank" class="whatsapp-btn">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp સંપર્ક
                 </a>
             </div>
             
@@ -578,30 +521,30 @@
 </div>
 
 <script>
-    // Precise Shutter Curtain Orchestration
+    // Bulletproof Curtain Slider Animation Engine
     window.addEventListener('DOMContentLoaded', () => {
         const shutterWrapper = document.getElementById('shutter-wrapper');
         const shutterText = document.getElementById('shutter-text');
         const mainContent = document.getElementById('main-content');
         
-        // Step 1: Wait exactly 2 seconds, then execute text dissolve
+        // 1. Wait 2 seconds, then dissolve center text safely
         setTimeout(() => {
-            shutterText.classList.add('fade-out');
+            shutterText.style.opacity = '0';
             
-            // Step 2: Once text fades out, trigger smooth split curtain slide animation
+            // 2. Immediately start sliding the top and bottom curtains away
             setTimeout(() => {
                 shutterWrapper.classList.add('open');
                 mainContent.classList.add('visible');
                 
-                // Step 3: Complete hardware transition cleanup safely
+                // 3. Force-remove the shutter wrapper from overlay layer once animation ends
                 setTimeout(() => {
                     shutterWrapper.style.display = 'none';
-                }, 1400);
-            }, 500);
+                }, 1500);
+            }, 400);
         }, 2000);
     });
 
-    // Countdown Engine
+    // Event Live Countdown Logic
     const eventTargetDate = new Date("July 21, 2026 18:00:00").getTime();
 
     const countdownEngine = setInterval(function() {
@@ -627,3 +570,4 @@
 
 </body>
 </html>
+
