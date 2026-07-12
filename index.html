@@ -32,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Seamless Theatre Silk Curtain Animation System --- */
+        /* --- Theatre Silk Curtain System Fixes --- */
         #shutter-wrapper {
             position: fixed;
             top: 0;
@@ -41,36 +41,39 @@
             height: 100vh;
             z-index: 9999;
             overflow: hidden;
+            pointer-events: auto;
         }
 
         .shutter-half {
             position: absolute;
             left: 0;
             width: 100%;
-            height: 50%;
+            height: 50.5%; /* Overlay slightly to guarantee NO middle line visibility */
             background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
-            transition: transform 1.6s cubic-bezier(0.77, 0, 0.175, 1);
+            transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
             box-shadow: inset 0 0 100px rgba(0,0,0,0.65);
         }
 
         .shutter-top {
             top: 0;
+            transform: translateY(0);
         }
 
         .shutter-bottom {
             bottom: 0;
+            transform: translateY(0);
         }
 
-        /* Curtain Sliding Movement Trigger */
+        /* Shutter Open States */
         #shutter-wrapper.open .shutter-top {
-            transform: translateY(-100%);
+            transform: translateY(-101%);
         }
 
         #shutter-wrapper.open .shutter-bottom {
-            transform: translateY(100%);
+            transform: translateY(101%);
         }
 
-        /* Smooth Text Dissolve Overlay */
+        /* Shutter Text Content Logic */
         .shutter-content {
             position: absolute;
             top: 50%;
@@ -80,13 +83,13 @@
             width: 90%;
             max-width: 600px;
             z-index: 10000;
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.5s ease, transform 0.5s ease;
             color: #FFFDF9;
         }
 
         .shutter-content.fade-out {
             opacity: 0;
-            transform: translate(-50%, -60%);
+            transform: translate(-50%, -55%);
         }
 
         .shutter-title {
@@ -128,17 +131,19 @@
             filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
         }
 
-        /* --- Main Content Layout --- */
+        /* --- Main Invitation Card Visibility Fix --- */
         .app-container {
             padding: 60px 20px;
             opacity: 0;
+            visibility: hidden;
             transform: scale(0.96);
-            transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s;
             max-width: 100%;
         }
 
         .app-container.visible {
             opacity: 1;
+            visibility: visible;
             transform: scale(1);
         }
 
@@ -211,7 +216,7 @@
             padding-left: 12px;
         }
 
-        /* Countdown Clock Section */
+        /* Countdown Timer Clock Styles */
         .countdown-container {
             background: linear-gradient(135deg, #FFFDF9 0%, #FAF2DF 100%);
             border: 2px solid var(--secondary-color);
@@ -274,7 +279,7 @@
             margin: 8px auto 0 auto;
         }
 
-        /* --- Rich Structure Layouts --- */
+        /* Grid Infrastructure Box Designs */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -349,7 +354,7 @@
             margin: 40px 0;
         }
 
-        /* --- Hosts Grid Design --- */
+        /* Hosts Layout Structure */
         .inv-section {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -426,10 +431,10 @@
 
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.85; }
-            100% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1.04); opacity: 1; }
         }
 
-        /* --- High Fidelity Responsive Media Quirks --- */
+        /* --- Mobile Quirks Layout Breakpoints --- */
         @media (max-width: 768px) {
             .shutter-title { font-size: 1.8rem; }
             .shutter-subtitle { font-size: 1.3rem; }
@@ -573,30 +578,30 @@
 </div>
 
 <script>
-    // Automatic Curtain Trigger Sequence on Dom Content Loaded
+    // Precise Shutter Curtain Orchestration
     window.addEventListener('DOMContentLoaded', () => {
         const shutterWrapper = document.getElementById('shutter-wrapper');
         const shutterText = document.getElementById('shutter-text');
         const mainContent = document.getElementById('main-content');
         
-        // Step 1: Wait 2 seconds with text visible, then fade out text smoothly
+        // Step 1: Wait exactly 2 seconds, then execute text dissolve
         setTimeout(() => {
             shutterText.classList.add('fade-out');
             
-            // Step 2: Slide the curtain layers wide open smoothly (top goes up, bottom goes down)
+            // Step 2: Once text fades out, trigger smooth split curtain slide animation
             setTimeout(() => {
                 shutterWrapper.classList.add('open');
                 mainContent.classList.add('visible');
                 
-                // Step 3: Clean up and remove curtain wrappers completely
+                // Step 3: Complete hardware transition cleanup safely
                 setTimeout(() => {
                     shutterWrapper.style.display = 'none';
-                }, 1600);
-            }, 600);
+                }, 1400);
+            }, 500);
         }, 2000);
     });
 
-    // Live Target Date Countdown Processing System
+    // Countdown Engine
     const eventTargetDate = new Date("July 21, 2026 18:00:00").getTime();
 
     const countdownEngine = setInterval(function() {
@@ -615,5 +620,10 @@
             document.getElementById("seconds").innerText = String(calculatedSeconds).padStart(2, '0');
         } else {
             clearInterval(countdownEngine);
-            document.querySelector(".countdown-container").innerHTML = "<div class='countdown-title' style='margin:0; font-size:1.2rem;'>✨ સમારો
+            document.querySelector(".countdown-container").innerHTML = "<div class='countdown-title' style='margin:0; font-size:1.2rem;'>✨ સમારોહ શરૂ થઈ ચૂક્યો છે. આપનું હાર્દિક સ્વાગત છે! ✨</div>";
+        }
+    }, 1000);
+</script>
 
+</body>
+</html>
