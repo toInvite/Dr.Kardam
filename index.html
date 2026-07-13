@@ -3,36 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>નિમંત્રણ પત્રિકા - વયનિવૃત્તિ સન્માન સમારોહ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>હાર્દિક આમંત્રણ પત્રિકા - વયનિવૃત્તિ સન્માન સમારોહ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #7A1F1F; 
-            --secondary-color: #B8860B; 
-            --gold-glow: #FFD700;
-            --text-dark: #3a2214;
-            --bg-cream: #FAF5E9;
-            --card-white: #FFFDF9;
+            --primary: #5A1212; 
+            --primary-dark: #3B0707;
+            --gold: #D4AF37; 
+            --gold-light: #F9F1D6;
+            --gold-dark: #AA7C11;
+            --text-dark: #2A1810;
+            --card-bg: #FFFDF9;
+            --bg-cream: #FAF3E3;
         }
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: 'Noto Sans Gujarati', sans-serif;
             background-color: var(--bg-cream);
-            background-image: radial-gradient(circle at 50% 50%, rgba(184, 134, 11, 0.04) 1px, transparent 1px);
-            background-size: 24px 24px;
-            margin: 0;
-            padding: 0;
+            background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.07) 1.5px, transparent 1.5px);
+            background-size: 40px 40px;
             color: var(--text-dark);
             line-height: 1.8;
             overflow-x: hidden;
         }
 
-        /* --- Royal Curtain Layer Styling --- */
+        /* --- Canvas Background for Particles --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- Royal Silk Curtain Animation Layer --- */
         #shutter-wrapper {
             position: fixed;
             top: 0;
@@ -41,7 +54,6 @@
             height: 100vh;
             z-index: 9999;
             overflow: hidden;
-            transition: visibility 1.5s;
         }
 
         .shutter-half {
@@ -49,13 +61,13 @@
             left: 0;
             width: 100%;
             height: 50.5%;
-            background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
-            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
-            box-shadow: inset 0 0 100px rgba(0,0,0,0.65);
+            background: linear-gradient(135deg, #4A0D0D 0%, #200404 100%);
+            transition: transform 1.8s cubic-bezier(0.76, 0, 0.24, 1);
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.85);
         }
 
-        .shutter-top { top: 0; }
-        .shutter-bottom { bottom: 0; }
+        .shutter-top { top: 0; border-bottom: 2px solid var(--gold); }
+        .shutter-bottom { bottom: 0; border-top: 2px solid var(--gold); }
 
         #shutter-wrapper.open .shutter-top { transform: translateY(-100%); }
         #shutter-wrapper.open .shutter-bottom { transform: translateY(100%); }
@@ -69,87 +81,123 @@
             width: 90%;
             max-width: 600px;
             z-index: 10000;
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.5s ease;
             color: #FFFDF9;
         }
 
         .shutter-title {
-            color: var(--gold-glow);
-            font-size: 2.4rem;
+            color: var(--gold-light);
+            font-size: 2.6rem;
             font-weight: 700;
-            margin: 0 0 8px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 8px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.6);
         }
 
         .shutter-subtitle {
-            color: #FFF;
             font-size: 1.6rem;
-            font-weight: 500;
-            margin: 0 0 15px 0;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+            font-weight: 400;
+            color: #FFF;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
         }
 
         .shutter-name {
-            color: var(--gold-glow);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin: 0;
-            background: rgba(255, 215, 0, 0.15);
-            padding: 6px 20px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 30px;
+            color: var(--gold-light);
+            font-size: 1.3rem;
+            font-weight: 600;
+            border: 1px solid var(--gold);
+            padding: 8px 32px;
+            border-radius: 50px;
+            background: rgba(211, 175, 55, 0.15);
             display: inline-block;
+            backdrop-filter: blur(4px);
         }
 
         .shutter-content i {
-            font-size: 3.8rem;
-            color: var(--gold-glow);
-            animation: pulse 1.5s infinite alternate;
+            font-size: 4rem;
+            color: var(--gold);
             margin-bottom: 20px;
             display: block;
+            animation: pulse 1.6s infinite alternate;
         }
 
-        /* --- Main Layout --- */
+        /* --- Elegant Frame and Container --- */
         .app-container {
-            padding: 60px 20px;
+            position: relative;
+            z-index: 2;
+            padding: 80px 20px;
             opacity: 0;
-            transform: scale(0.96);
-            transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-            max-width: 100%;
+            transform: translateY(30px);
+            transition: opacity 1.8s cubic-bezier(0.215, 0.610, 0.355, 1), transform 1.8s cubic-bezier(0.215, 0.610, 0.355, 1);
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .app-container.visible {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
         }
 
         .card {
-            max-width: 850px;
-            margin: 0 auto;
-            background: var(--card-white);
-            border: 4px double var(--secondary-color);
-            outline: 16px solid var(--primary-color);
-            border-radius: 16px;
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            border: 1px solid var(--gold);
+            border-radius: 6px;
             padding: 60px 50px;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.2), inset 0 0 50px rgba(184, 134, 11, 0.06);
             position: relative;
+            box-shadow: 0 40px 90px rgba(42, 24, 16, 0.15), inset 0 0 120px rgba(212, 175, 55, 0.06);
         }
 
-        .card::before, .card::after {
-            content: "✦";
+        /* Metallic Gold Outer Line for Premium Elegance */
+        .card-frame {
             position: absolute;
-            color: var(--secondary-color);
-            font-size: 26px;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 0 2px var(--gold);
+            pointer-events: none;
         }
-        .card::before { top: 15px; left: 20px; }
-        .card::after { top: 15px; right: 20px; }
+
+        .card-corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            color: var(--gold-dark);
+            font-size: 26px;
+            line-height: 1;
+            z-index: 3;
+        }
+        .top-left { top: 20px; left: 23px; }
+        .top-right { top: 20px; right: 23px; text-align: right; }
+        .bottom-left { bottom: 25px; left: 23px; }
+        .bottom-right { bottom: 25px; right: 23px; text-align: right; }
+
+        /* --- Premium Ganpati SVG Container --- */
+        .ganpati-container {
+            text-align: center;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .ganpati-svg {
+            width: 100px;
+            height: auto;
+            filter: drop-shadow(0px 4px 6px rgba(170, 124, 17, 0.3));
+        }
 
         .ganesha-header {
             text-align: center;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 30px;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 35px;
+            letter-spacing: 1.5px;
         }
 
         .center-heading-wrapper {
@@ -158,114 +206,122 @@
         }
 
         h1 {
-            color: var(--primary-color);
-            font-size: 2.8rem;
-            margin: 0 0 10px 0;
+            color: var(--primary);
+            font-size: 3rem;
             font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
         }
 
         h2 {
-            color: var(--secondary-color);
-            font-size: 1.9rem;
+            color: var(--gold-dark);
+            font-size: 1.85rem;
             font-weight: 500;
-            margin: 0 auto;
-            padding-bottom: 15px;
-            border-bottom: 2px dashed var(--secondary-color);
+            letter-spacing: 0.5px;
             display: inline-block;
-        }
-
-        .invitation-text {
-            font-size: 1.2rem;
-            text-align: center;
-            margin-bottom: 24px;
-            padding: 0 15px;
+            padding-bottom: 12px;
         }
 
         .salutation {
             font-size: 1.25rem;
+            color: var(--primary-dark);
             margin-bottom: 15px;
-            color: var(--primary-color);
-            text-align: left;
-            border-left: 4px solid var(--primary-color);
-            padding-left: 12px;
+            font-weight: 600;
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
         }
 
-        /* Highlight Text Style */
-        .highlight-box {
-            background-color: rgba(184, 134, 11, 0.08);
-            border: 1px dashed var(--secondary-color);
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
+        .invitation-text {
             font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--primary-color);
-            margin: 30px auto;
-            max-width: 90%;
-            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.05);
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            font-weight: 400;
+            padding: 0 15px;
         }
 
-        /* Countdown Grid Styles */
-        .countdown-container {
-            background: linear-gradient(135deg, #FFFDF9 0%, #FAF2DF 100%);
-            border: 2px solid var(--secondary-color);
-            border-radius: 12px;
-            padding: 25px;
-            margin: 40px 0;
+        /* Premium Smooth Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.02) 100%);
+            border-top: 1px solid rgba(212, 175, 55, 0.6);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.6);
+            padding: 22px;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.08);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 40px auto;
+            max-width: 90%;
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.05);
+        }
+
+        /* --- Premium Elegant Countdown --- */
+        .countdown-container {
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 4px;
+            padding: 25px;
+            margin: 45px 0;
+            text-align: center;
+            background: #FFF;
+            box-shadow: 0 10px 30px rgba(42, 24, 16, 0.03);
         }
 
         .countdown-title {
-            font-size: 1.15rem;
-            color: var(--primary-color);
+            font-size: 1.1rem;
+            color: var(--primary);
             margin-bottom: 20px;
-            font-weight: 700;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .countdown-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 15px;
-            max-width: 550px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
         .countdown-box {
-            background: #fff;
-            border: 1px solid rgba(184, 134, 11, 0.3);
-            padding: 12px 5px;
-            border-radius: 10px;
+            background: var(--bg-cream);
+            padding: 15px 5px;
+            border-radius: 4px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
         }
 
         .countdown-num {
-            font-size: 2rem;
+            font-size: 2.3rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--primary);
             display: block;
+            line-height: 1.2;
         }
 
         .countdown-label {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-dark);
+            font-weight: 500;
+            opacity: 0.8;
         }
 
+        /* --- Program Details Grid --- */
         h3 {
-            color: var(--primary-color);
-            font-size: 1.6rem;
-            margin: 45px 0 25px 0;
+            color: var(--primary);
+            font-size: 1.65rem;
+            margin: 50px 0 30px 0;
             text-align: center;
+            font-weight: 600;
         }
         h3::after {
             content: '';
             display: block;
-            width: 70px;
-            height: 2px;
-            background-color: var(--secondary-color);
-            margin: 8px auto 0 auto;
+            width: 60px;
+            height: 1px;
+            background-color: var(--gold);
+            margin: 10px auto 0 auto;
         }
 
-        /* Grid Infrastructure Configurations */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -275,37 +331,36 @@
 
         .box {
             background-color: #FFF;
-            border: 1px solid rgba(184, 134, 11, 0.25);
-            border-left: 5px solid var(--secondary-color);
-            padding: 22px;
-            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 26px;
             font-size: 1.15rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 5px;
-            transition: all 0.35s ease;
+            gap: 8px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .box-title {
             font-size: 0.95rem;
-            color: var(--secondary-color);
+            color: var(--gold-dark);
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 8px;
+            margin-bottom: 2px;
         }
 
         .box:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(184, 134, 11, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(90, 18, 18, 0.08);
+            border-color: var(--primary);
         }
 
         .box-full {
             grid-column: span 2;
-            border-left-color: var(--primary-color);
         }
 
         .map-link {
@@ -313,127 +368,161 @@
             color: inherit;
         }
 
+        /* Elegant Buttons */
         .calendar-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            width: 100%;
-            max-width: 320px;
-            margin: -10px auto 30px auto;
-            background-color: #fff;
-            border: 2px solid #4285F4;
-            color: #4285F4;
-            padding: 12px 24px;
-            border-radius: 30px;
+            background-color: transparent;
+            border: 1px solid var(--gold-dark);
+            color: var(--gold-dark);
+            padding: 14px 32px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            margin: 10px auto;
+        }
+        .calendar-btn:hover {
+            background-color: var(--gold-dark);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(170, 124, 17, 0.2);
         }
 
         .bottom-text {
             text-align: center;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 500;
-            color: var(--primary-color);
+            color: var(--primary);
             font-style: italic;
-            margin: 35px 0 15px 0;
+            margin: 45px 0 25px 0;
         }
 
         .divider {
             height: 1px;
-            background: linear-gradient(to right, transparent, var(--secondary-color) 20%, var(--secondary-color) 80%, transparent);
-            margin: 30px 0;
+            background: linear-gradient(to right, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+            margin: 35px 0;
         }
 
-        /* Hosts Structure (Left and Right Side Layout) */
+        /* --- Hosts Section Layout --- */
         .inv-section {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
-            gap: 35px;
-            align-items: start;
+            gap: 40px;
         }
 
         .host-left {
-            background: linear-gradient(135deg, #FAF6ED 0%, #FFFDF9 100%);
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid rgba(184, 134, 11, 0.25);
-            border-top: 4px solid var(--primary-color);
+            background-color: #FFF;
+            padding: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .host-title {
             font-weight: 700;
-            font-size: 1.35rem;
-            color: var(--primary-color);
-            margin-bottom: 8px;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 6px;
         }
 
         .host-details {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            opacity: 0.95;
         }
 
         .whatsapp-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            gap: 8px;
+            background-color: var(--primary);
             color: white;
             text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: bold;
+            padding: 12px 24px;
+            font-weight: 600;
             font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            align-self: flex-start;
+        }
+        .whatsapp-btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 6px 15px rgba(90, 18, 18, 0.15);
         }
 
         .host-right {
-            padding: 10px 0 10px 30px;
-            border-left: 3px double var(--secondary-color);
+            padding-left: 35px;
+            border-left: 1px solid rgba(212, 175, 55, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .family-member {
             font-weight: 500;
-            margin-bottom: 16px;
-            font-size: 1.2rem;
-            position: relative;
-            list-style: none;
-        }
-        .family-member::before {
-            content: "•";
-            color: var(--primary-color);
-            position: absolute;
-            left: -20px;
+            margin-bottom: 18px;
+            font-size: 1.25rem;
+            color: var(--text-dark);
         }
 
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.85; }
-            100% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1.04); opacity: 1; }
         }
 
-        /* Mobile Breakpoints */
+        /* --- Full Mobile Responsiveness Engine --- */
         @media (max-width: 768px) {
             .shutter-title { font-size: 1.8rem; }
-            .shutter-subtitle { font-size: 1.3rem; }
-            .app-container { padding: 30px 12px; }
-            .card { padding: 45px 20px; outline: 8px solid var(--primary-color); }
-            h1 { font-size: 2.2rem; }
-            h2 { font-size: 1.5rem; }
-            .salutation { text-align: center; padding-left: 0; border-left: none; border-bottom: 1px solid #eee; }
+            .shutter-subtitle { font-size: 1.2rem; }
+            .shutter-name { font-size: 1.1rem; padding: 6px 20px; }
+            .app-container { padding: 20px 10px; }
+            .card { padding: 35px 15px; }
+            .card-frame { top: 8px; left: 8px; right: 8px; bottom: 8px; }
+            .card-corner { font-size: 18px; }
+            .top-left { top: 12px; left: 14px; }
+            .top-right { top: 12px; right: 14px; }
+            .bottom-left { bottom: 14px; left: 14px; }
+            .bottom-right { bottom: 14px; right: 14px; }
+            
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.4rem; padding-bottom: 6px; }
+            .ganpati-svg { width: 80px; }
+            .ganesha-header { font-size: 1.1rem; margin-bottom: 25px; }
+            .center-heading-wrapper { margin-bottom: 30px; }
+
+            .salutation { text-align: center; padding-left: 0; border-left: none; border-bottom: 1px solid rgba(212, 175, 55, 0.25); padding-bottom: 12px; font-size: 1.1rem; }
+            .invitation-text { font-size: 1.1rem; padding: 0 5px; }
+            .highlight-box { font-size: 1.15rem; padding: 15px; width: 100%; max-width: 100%; }
+
+            .countdown-container { padding: 15px; margin: 30px 0; }
             .countdown-grid { gap: 8px; }
             .countdown-num { font-size: 1.5rem; }
-            .grid { grid-template-columns: 1fr; }
+            .countdown-label { font-size: 0.8rem; }
+            
+            .grid { grid-template-columns: 1fr; gap: 15px; }
             .box-full { grid-column: span 1; }
+            .box { padding: 18px; font-size: 1.05rem; }
+            
             .inv-section { grid-template-columns: 1fr; gap: 25px; }
-            .host-left { text-align: center; }
-            .whatsapp-btn { width: 100%; }
-            .host-right { border-left: none; border-top: 2px double var(--secondary-color); padding-left: 0; padding-top: 25px; text-align: center; }
-            .family-member::before { display: none; }
+            .host-left { text-align: center; align-items: center; padding: 20px; }
+            .whatsapp-btn { align-self: center; width: 100%; }
+            .host-right { border-left: none; border-top: 1px solid rgba(212, 175, 55, 0.4); padding-left: 0; padding-top: 25px; text-align: center; }
+            .family-member { margin-bottom: 12px; font-size: 1.15rem; }
         }
     </style>
 </head>
 <body>
+
+<!-- Canvas Element for Premium Dust Particles -->
+<canvas id="particle-canvas"></canvas>
 
 <!-- Royal Split Shutter Curtain Markup -->
 <div id="shutter-wrapper">
@@ -442,41 +531,61 @@
     
     <div class="shutter-content" id="shutter-text">
         <i class="fa-solid fa-envelope-open-text"></i>
-        <h2 class="shutter-title">આમંત્રણ પત્રિકા</h2>
+        <h2 class="shutter-title" style="color: var(--gold-light);">હાર્દિક આમંત્રણ પત્રિકા</h2>
         <div class="shutter-subtitle">વયનિવૃત્તિ સન્માન સમારોહ</div>
         <div class="shutter-name">(ડૉ. કર્દમ જે. પટેલ)</div>
     </div>
 </div>
 
+<!-- Main Elegantly Crafted Card Infrastructure -->
 <div class="app-container" id="main-content">
     <div class="card">
+        <!-- Structural Frames for Royal Theme -->
+        <div class="card-frame"></div>
+        <div class="card-corner top-left">✦</div>
+        <div class="card-corner top-right">✦</div>
+        <div class="card-corner bottom-left">✦</div>
+        <div class="card-corner bottom-right">✦</div>
+
+        <!-- Premium In-line Gold Ganpati SVG -->
+        <div class="ganpati-container">
+            <svg class="ganpati-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 15 C42 15, 38 22, 42 28 C45 32, 55 30, 58 35 C62 42, 48 45, 45 52 C42 60, 52 68, 50 78 C49 82, 44 85, 46 88 C48 90, 54 88, 55 84 C58 74, 48 65, 52 56 C54 52, 68 50, 64 40 C61 32, 52 35, 50 15 Z" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M46 26 C32 24, 25 35, 30 45 C34 52, 42 48, 44 42" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+                <path d="M54 26 C68 24, 75 35, 70 45 C66 52, 58 48, 56 42" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+                <path d="M42 38 L58 38" fill="none" stroke="#D4AF37" stroke-width="2"/>
+                <path d="M44 34 L56 34" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+                <circle cx="50" cy="28" r="1.5" fill="#5A1212"/>
+                <path d="M38 65 C38 75, 45 82, 50 82 C55 82, 62 75, 62 65" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-dasharray="3 3"/>
+            </svg>
+        </div>
+
         <div class="ganesha-header">॥ શ્રી ગણેશાય નમઃ ॥</div>
         
         <div class="center-heading-wrapper">
-            <h1>આમંત્રણ પત્રિકા</h1>
+            <h1>હાર્દિક આમંત્રણ પત્રિકા</h1>
             <h2>વયનિવૃત્તિ સન્માન સમારોહ</h2>
         </div>
         
-        <p class="salutation"><b>આદરણીય સ્નેહી શ્રી/શ્રીમતી ........................................................</b></p>
-        <p style="font-size: 1.1rem; margin-top: 0;"><b>સાદર વંદન,</b></p>
+        <p class="salutation">આદરણીય સ્નેહી શ્રી/શ્રીમતી .........................................</p>
+        <p style="font-size: 1.2rem; margin-bottom: 20px; color: var(--primary); font-weight: 600; text-align: left; padding-left: 15px;">સાદર વંદન,</p>
         
         <p class="invitation-text">
-            પંચમહાલ ડેરી, ગોધરા ખાતે 36 વર્ષ સુધી નિષ્ઠાપૂર્વક, પ્રામાણિકતા તથા સમર્પિત ભાવથી સેવાઓ બજાવ્યા બાદ હું વયનિવૃત્ત થઈ રહ્યો છું.
+            પંચમહાલ ડેરી, ગોધરા ખાતે 36 વર્ષ સુધી નિષ્ઠાપૂર્વક, પ્રમાણિકતા તથા સમર્પિત ભાવથી સેવાઓ બજાવ્યા બાદ હું વયનિવૃત્ત થઈ રહ્યો છું.
         </p>
         
         <p class="invitation-text">
             આ શુભ અવસરને યાદગાર બનાવવા યોજાનાર વયનિવૃત્તિ સન્માન સમારોહમાં આપની ઉપસ્થિતિ અમારા માટે સૌથી મોટું સન્માન બનશે.
         </p>
 
-        <!-- Highlight Text Area -->
+        <!-- Premium Highlight Box Area -->
         <div class="highlight-box">
-            <i class="fa-solid fa-star" style="color: var(--secondary-color); margin-right: 5px;"></i>
             આપ સહપરિવાર પધારી આ શુભ પ્રસંગની શોભામાં અભિવૃદ્ધિ કરશો.
         </div>
 
-        <!-- Countdown Block -->
+        <!-- Dynamic Digital Countdown Block -->
         <div class="countdown-container">
-            <div class="countdown-title"><i class="fa-solid fa-hourglass-half"></i> સમારોહ શરૂ થવા માટે બાકી સમય</div>
+            <div class="countdown-title"><i class="fa-regular fa-clock"></i> સમારોહ શરૂ થવા માટે બાકી સમય</div>
             <div class="countdown-grid">
                 <div class="countdown-box">
                     <span class="countdown-num" id="days">00</span>
@@ -501,17 +610,17 @@
         <div class="grid">
             <!-- તારીખ બોક્સ -->
             <div class="box">
-                <div class="box-title"><i class="fa-solid fa-calendar-days"></i> તારીખ</div>
+                <div class="box-title"><i class="fa-regular fa-calendar"></i> તારીખ</div>
                 <div><strong>તા. 21-07-2026</strong></div>
-                <div style="font-size: 1rem; color: #666;">(મંગળવાર)</div>
+                <div style="font-size: 0.95rem; color: #666;">(મંગળવાર)</div>
             </div>
             
             <!-- સ્થળ બોક્સ -->
-            <a href="https://maps.google.com/?q=Moti+Bagh+Godhra" target="_blank" class="map-link">
+            <a href="https://maps.google.com" target="_blank" class="map-link">
                 <div class="box">
                     <div class="box-title" style="color: #ea4335;"><i class="fa-solid fa-location-dot"></i> સ્થળ</div>
                     <div><strong>મોતી બાગ, અમદાવાદ રોડ, ગોધરા</strong></div>
-                    <div style="font-size: 0.85rem; color:#4285F4; margin-top:2px;"><i class="fa-solid fa-map-navigator"></i> નકશો જુઓ</div>
+                    <div style="font-size: 0.85rem; color: var(--gold-dark); font-weight: 600; margin-top: 2px;">નકશો જુઓ →</div>
                 </div>
             </a>
             
@@ -522,33 +631,34 @@
             </div>
         </div>
 
-        <div style="text-align: center;">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%E0%AA%B5%E0%AA%AF%E0%AA%A8%E0%AA%BF%E0%AA%B5%E0%AB%83%E0%AA%A4%E0%AB%8D%E0%AA%A4%E0%AA%BF+%E0%AA%B8%E0%AA%A8%E0%AB%8D%E0%AA%AE%E0%AA%BE%E0%AA%A8+%E0%AA%B8%E0%AA%AE%E0%AA%BE%E0%AA%B0%E0%AA%AC+%28%E0%AA%A1%E0%AB%8D%E0%AA%Bgroup.%E0%AA%95%E0%AA%B0%E0%AB%8D%E0%AA%A6%E0%AA%AE+%E0%AA%9C%E0%AB%8D%E0%AA%AF%E0%AA%AE%E0%AA%BE%E0%AA%A4%E0%AB%87%E0%AA%B2%29&dates=20260721T180000/20260721T220000&details=%E0%AA%AA%E0%AA%82%E0%AA%9A%E0%AA%AE%E0%AA%B9%E0%AA%BE%E0%AA%B2+%E0%AA%A1%E0%AB%87%E0%AA%B0%E0%AA%BF%2B%E0%AA%97%E0%AA%B3%E0%AA%A7%E0%AA%B0%E0%AA%BE+%E0%AA%96%E0%AA%BE%E0%AA%A4%E0%AA%B7%2B%E0%AA%B8%E0%AA%B0%E0%AB%8D%E0%AA%B5%E0%AA%BF%E0%AA%B8%2B%E0%AA%A8%E0%AA%BF%E0%AA%B5%E0%AB%83%E0%AA%A4%E0%AB%8D%E0%AA%A4%E0%AA%BF&location=%E0%AA%AE%E0%AA%B3%E0%AA%A4%E0%AA%BF+%E0%AA%AC%E0%AA%BE%E0%AA%97%2B%E0%AA%85%E0%AA%AE%E0%AA%A6%E0%AA%BE%E0%AA%B5%E0%AA%BE%E0%AA%A6+%E0%AA%B0%E0%AB%8B%E0%AA%A1%2B%E0%AA%97%E0%AA%B3%E0%AA%A7%E0%AA%B0%E0%AA%BE" target="_blank" class="calendar-btn">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%E0%AA%B5%E0%AA%AF%E0%AA%A8%E0%AA%BF%E0%AA%B5%E0%AB%83%E0%AA%A4%E0%AB%8D%E0%AA%A4%E0%AA%BF+%E0%AA%B8%E0%AA%A8%E0%AB%8D%E0%AA%AE%E0%AA%BE%E0%AA%A8+%E0%AA%B8%E0%AA%AE%E0%AA%BE%E0%AA%B0%E0%AA%AC&dates=20260721T180000/20260721T220000" target="_blank" class="calendar-btn">
                 <i class="fa-regular fa-calendar-plus"></i> Google Calendar માં ઉમેરો
             </a>
         </div>
 
-        <!-- Bottom Text Added Here -->
         <div class="bottom-text">આપના આગમનની આતુરતાપૂર્વક રાહ જોતા...</div>
 
         <div class="divider"></div>
 
         <h3>નિમંત્રક</h3>
         <div class="inv-section">
-            <!-- ડાબી બાજુ -->
+            <!-- ડાબી બાજુનું સેક્શન -->
             <div class="host-left">
-                <div class="host-title">ડૉ. કર્દમ જે. પટેલ</div>
-                <div class="host-details">
-                    ડેપ્યુટી જનરલ મેનેજર<br>
-                    પંચમહાલ ડેરી, ગોધરા<br>
-                    <strong>મો. નં.:</strong> 9979857154
+                <div>
+                    <div class="host-title">ડૉ. કર્દમ જે. પટેલ</div>
+                    <div class="host-details">
+                        ડેપ્યુટી જનરલ મેનેજર<br>
+                        પંચમહાલ DD પંચમહાલ ડેરી, ગોધરા<br>
+                        <strong>મો. નં.:</strong> 9979857154
+                    </div>
                 </div>
                 <a href="https://wa.me/919979857154" target="_blank" class="whatsapp-btn">
                     <i class="fa-brands fa-whatsapp"></i> WhatsApp સંપર્ક
                 </a>
             </div>
             
-            <!-- જમણી બાજુ -->
+            <!-- જમણી બાજુનું સેક્શન -->
             <div class="host-right">
                 <div class="family-member">વંદના કે. પટેલ</div>
                 <div class="family-member">ડૉ. ઝલકકુમાર કે. પટેલ</div>
@@ -559,7 +669,62 @@
 </div>
 
 <script>
-    // Curtain Slider Animation Engine
+    // Premium Canvas Particles Engine (Golden Dust Effect)
+    const canvas = document.getElementById("particle-canvas");
+    const ctx = canvas.getContext("2d");
+    let particlesArray = [];
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height - canvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedY = Math.random() * 0.7 + 0.2;
+            this.speedX = Math.random() * 0.4 - 0.2;
+            this.opacity = Math.random() * 0.6 + 0.2;
+        }
+        update() {
+            this.y += this.speedY;
+            this.x += this.speedX;
+            if (this.y > canvas.height) {
+                this.y = 0 - 10;
+                this.x = Math.random() * canvas.width;
+            }
+        }
+        draw() {
+            ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particlesArray = [];
+        let count = window.innerWidth < 768 ? 35 : 65; // Fewer particles on mobile for better performance
+        for (let i = 0; i < count; i++) {
+            particlesArray.push(new Particle());
+        }
+    }
+
+    // Animation Loop
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+            particlesArray[i].draw();
+        }
+        requestAnimationFrame(animateParticles);
+    }
+
+    // Curtain Orchestration System
     window.addEventListener('DOMContentLoaded', () => {
         const shutterWrapper = document.getElementById('shutter-wrapper');
         const shutterText = document.getElementById('shutter-text');
@@ -572,14 +737,17 @@
                 shutterWrapper.classList.add('open');
                 mainContent.classList.add('visible');
                 
+                initParticles();
+                animateParticles();
+                
                 setTimeout(() => {
                     shutterWrapper.style.display = 'none';
-                }, 1500);
-            }, 400);
-        }, 2000);
+                }, 1800);
+            }, 300);
+        }, 1800);
     });
 
-    // Countdown Engine (Target: July 21, 2026)
+    // Countdown Timer Engine (Target Date: July 21, 2026)
     const eventTargetDate = new Date("July 21, 2026 18:00:00").getTime();
 
     const countdownEngine = setInterval(function() {
@@ -598,10 +766,11 @@
             document.getElementById("seconds").innerText = String(calculatedSeconds).padStart(2, '0');
         } else {
             clearInterval(countdownEngine);
-            document.querySelector(".countdown-container").innerHTML = "<div class='countdown-title' style='margin:0; font-size:1.2rem;'>✨ સમારોહ શરૂ થઈ ચૂક્યો છે. આપનું હાર્દિક સ્વાગત છે! ✨</div>";
+            document.querySelector(".countdown-container").innerHTML = "<div style='font-size:1.2rem; font-weight:600; color:#5A1212;'>✨ સમારોહ શરૂ થઈ ચૂક્યો છે. આપનું હાર્દિક સ્વાગત છે! ✨</div>";
         }
     }, 1000);
 </script>
 
 </body>
 </html>
+
