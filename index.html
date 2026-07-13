@@ -150,7 +150,6 @@
             box-shadow: 0 40px 90px rgba(42, 24, 16, 0.15), inset 0 0 120px rgba(212, 175, 55, 0.06);
         }
 
-        /* Metallic Gold Outer Line for Premium Elegance */
         .card-frame {
             position: absolute;
             top: 15px;
@@ -240,7 +239,6 @@
             padding: 0 15px;
         }
 
-        /* Premium Smooth Highlight Box */
         .highlight-box {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.02) 100%);
             border-top: 1px solid rgba(212, 175, 55, 0.6);
@@ -339,6 +337,7 @@
             justify-content: center;
             gap: 8px;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            height: 100%;
         }
 
         .box-title {
@@ -366,9 +365,9 @@
         .map-link {
             text-decoration: none;
             color: inherit;
+            display: block;
         }
 
-        /* Elegant Buttons */
         .calendar-btn {
             display: inline-flex;
             align-items: center;
@@ -521,10 +520,8 @@
 </head>
 <body>
 
-<!-- Canvas Element for Premium Dust Particles -->
 <canvas id="particle-canvas"></canvas>
 
-<!-- Royal Split Shutter Curtain Markup -->
 <div id="shutter-wrapper">
     <div class="shutter-half shutter-top"></div>
     <div class="shutter-half shutter-bottom"></div>
@@ -537,17 +534,14 @@
     </div>
 </div>
 
-<!-- Main Elegantly Crafted Card Infrastructure -->
 <div class="app-container" id="main-content">
     <div class="card">
-        <!-- Structural Frames for Royal Theme -->
         <div class="card-frame"></div>
         <div class="card-corner top-left">✦</div>
         <div class="card-corner top-right">✦</div>
         <div class="card-corner bottom-left">✦</div>
         <div class="card-corner bottom-right">✦</div>
 
-        <!-- Premium In-line Gold Ganpati SVG -->
         <div class="ganpati-container">
             <svg class="ganpati-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 15 C42 15, 38 22, 42 28 C45 32, 55 30, 58 35 C62 42, 48 45, 45 52 C42 60, 52 68, 50 78 C49 82, 44 85, 46 88 C48 90, 54 88, 55 84 C58 74, 48 65, 52 56 C54 52, 68 50, 64 40 C61 32, 52 35, 50 15 Z" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round"/>
@@ -567,7 +561,7 @@
             <h2>વયનિવૃત્તિ સન્માન સમારોહ</h2>
         </div>
         
-        <p class="salutation">આદરણીય સ્નેહી શ્રી/શ્રીમતી .........................................</p>
+        <p class="salutation">આદરણીય સ્નેહી શ્રી/શ્રીમતી ........................................................</p>
         <p style="font-size: 1.2rem; margin-bottom: 20px; color: var(--primary); font-weight: 600; text-align: left; padding-left: 15px;">સાદર વંદન,</p>
         
         <p class="invitation-text">
@@ -578,12 +572,10 @@
             આ શુભ અવસરને યાદગાર બનાવવા યોજાનાર વયનિવૃત્તિ સન્માન સમારોહમાં આપની ઉપસ્થિતિ અમારા માટે સૌથી મોટું સન્માન બનશે.
         </p>
 
-        <!-- Premium Highlight Box Area -->
         <div class="highlight-box">
             આપ સહપરિવાર પધારી આ શુભ પ્રસંગની શોભામાં અભિવૃદ્ધિ કરશો.
         </div>
 
-        <!-- Dynamic Digital Countdown Block -->
         <div class="countdown-container">
             <div class="countdown-title"><i class="fa-regular fa-clock"></i> સમારોહ શરૂ થવા માટે બાકી સમય</div>
             <div class="countdown-grid">
@@ -608,15 +600,13 @@
 
         <h3>કાર્યક્રમની રૂપરેખા</h3>
         <div class="grid">
-            <!-- તારીખ બોક્સ -->
             <div class="box">
                 <div class="box-title"><i class="fa-regular fa-calendar"></i> તારીખ</div>
                 <div><strong>તા. 21-07-2026</strong></div>
                 <div style="font-size: 0.95rem; color: #666;">(મંગળવાર)</div>
             </div>
             
-            <!-- સ્થળ બોક્સ -->
-            <a href="https://maps.google.com" target="_blank" class="map-link">
+            <a href="https://maps.google.com/?q=Moti+Bagh+Godhra+Ahmedabad+Road" target="_blank" class="map-link">
                 <div class="box">
                     <div class="box-title" style="color: #ea4335;"><i class="fa-solid fa-location-dot"></i> સ્થળ</div>
                     <div><strong>મોતી બાગ, અમદાવાદ રોડ, ગોધરા</strong></div>
@@ -624,7 +614,6 @@
                 </div>
             </a>
             
-            <!-- ભોજન સમારંભ બોક્સ -->
             <div class="box box-full">
                 <div class="box-title"><i class="fa-solid fa-utensils"></i> ભોજન સમારંભ</div>
                 <div><strong>સાંજે 6:00 કલાકથી</strong></div>
@@ -641,15 +630,14 @@
 
         <div class="divider"></div>
 
-        <h3>નિમંત્રક</h3>
+        <h3>નิมંત્રક</h3>
         <div class="inv-section">
-            <!-- ડાબી બાજુનું સેક્શન -->
             <div class="host-left">
                 <div>
                     <div class="host-title">ડૉ. કર્દમ જે. પટેલ</div>
                     <div class="host-details">
                         ડેપ્યુટી જનરલ મેનેજર<br>
-                        પંચમહાલ DD પંચમહાલ ડેરી, ગોધરા<br>
+                        પંચમહાલ ડેરી, ગોધરા<br>
                         <strong>મો. નં.:</strong> 9979857154
                     </div>
                 </div>
@@ -658,7 +646,6 @@
                 </a>
             </div>
             
-            <!-- જમણી બાજુનું સેક્શન -->
             <div class="host-right">
                 <div class="family-member">વંદના કે. પટેલ</div>
                 <div class="family-member">ડૉ. ઝલકકુમાર કે. પટેલ</div>
@@ -669,7 +656,6 @@
 </div>
 
 <script>
-    // Premium Canvas Particles Engine (Golden Dust Effect)
     const canvas = document.getElementById("particle-canvas");
     const ctx = canvas.getContext("2d");
     let particlesArray = [];
@@ -708,13 +694,12 @@
 
     function initParticles() {
         particlesArray = [];
-        let count = window.innerWidth < 768 ? 35 : 65; // Fewer particles on mobile for better performance
+        let count = window.innerWidth < 768 ? 35 : 65;
         for (let i = 0; i < count; i++) {
             particlesArray.push(new Particle());
         }
     }
 
-    // Animation Loop
     function animateParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (let i = 0; i < particlesArray.length; i++) {
@@ -724,7 +709,6 @@
         requestAnimationFrame(animateParticles);
     }
 
-    // Curtain Orchestration System
     window.addEventListener('DOMContentLoaded', () => {
         const shutterWrapper = document.getElementById('shutter-wrapper');
         const shutterText = document.getElementById('shutter-text');
@@ -747,7 +731,6 @@
         }, 1800);
     });
 
-    // Countdown Timer Engine (Target Date: July 21, 2026)
     const eventTargetDate = new Date("July 21, 2026 18:00:00").getTime();
 
     const countdownEngine = setInterval(function() {
